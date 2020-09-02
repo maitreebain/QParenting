@@ -7,13 +7,18 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		8039032F25000CCB006EA799 /* MainTabController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8039032E25000CCB006EA799 /* MainTabController.swift */; };
+		8039033125000DE9006EA799 /* Navigation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8039033025000DE9006EA799 /* Navigation.swift */; };
+		803903332500138F006EA799 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 803903322500138F006EA799 /* LoginViewController.swift */; };
 		8085C14F2500044100A41039 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8085C14E2500044100A41039 /* AppDelegate.swift */; };
 		8085C1512500044100A41039 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8085C1502500044100A41039 /* SceneDelegate.swift */; };
-		8085C1532500044100A41039 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8085C1522500044100A41039 /* ViewController.swift */; };
+		8085C1532500044100A41039 /* ResourcesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8085C1522500044100A41039 /* ResourcesViewController.swift */; };
 		8085C1562500044100A41039 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8085C1542500044100A41039 /* Main.storyboard */; };
 		8085C1582500044300A41039 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8085C1572500044300A41039 /* Assets.xcassets */; };
 		8085C15B2500044300A41039 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8085C1592500044300A41039 /* LaunchScreen.storyboard */; };
 		8085C1662500044300A41039 /* QParentingTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8085C1652500044300A41039 /* QParentingTests.swift */; };
+		8085C1712500076800A41039 /* ForumViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8085C1702500076800A41039 /* ForumViewController.swift */; };
+		8085C1732500076F00A41039 /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8085C1722500076F00A41039 /* ProfileViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -27,10 +32,13 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		8039032E25000CCB006EA799 /* MainTabController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTabController.swift; sourceTree = "<group>"; };
+		8039033025000DE9006EA799 /* Navigation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Navigation.swift; sourceTree = "<group>"; };
+		803903322500138F006EA799 /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		8085C14B2500044100A41039 /* QParenting.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = QParenting.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		8085C14E2500044100A41039 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		8085C1502500044100A41039 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
-		8085C1522500044100A41039 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		8085C1522500044100A41039 /* ResourcesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResourcesViewController.swift; sourceTree = "<group>"; };
 		8085C1552500044100A41039 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		8085C1572500044300A41039 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		8085C15A2500044300A41039 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -38,6 +46,8 @@
 		8085C1612500044300A41039 /* QParentingTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = QParentingTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		8085C1652500044300A41039 /* QParentingTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QParentingTests.swift; sourceTree = "<group>"; };
 		8085C1672500044300A41039 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		8085C1702500076800A41039 /* ForumViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForumViewController.swift; sourceTree = "<group>"; };
+		8085C1722500076F00A41039 /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -81,7 +91,12 @@
 			children = (
 				8085C14E2500044100A41039 /* AppDelegate.swift */,
 				8085C1502500044100A41039 /* SceneDelegate.swift */,
-				8085C1522500044100A41039 /* ViewController.swift */,
+				8039033025000DE9006EA799 /* Navigation.swift */,
+				8085C1522500044100A41039 /* ResourcesViewController.swift */,
+				803903322500138F006EA799 /* LoginViewController.swift */,
+				8085C1702500076800A41039 /* ForumViewController.swift */,
+				8085C1722500076F00A41039 /* ProfileViewController.swift */,
+				8039032E25000CCB006EA799 /* MainTabController.swift */,
 				8085C1542500044100A41039 /* Main.storyboard */,
 				8085C1572500044300A41039 /* Assets.xcassets */,
 				8085C1592500044300A41039 /* LaunchScreen.storyboard */,
@@ -200,7 +215,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				8085C1532500044100A41039 /* ViewController.swift in Sources */,
+				8085C1712500076800A41039 /* ForumViewController.swift in Sources */,
+				8085C1532500044100A41039 /* ResourcesViewController.swift in Sources */,
+				8039033125000DE9006EA799 /* Navigation.swift in Sources */,
+				8039032F25000CCB006EA799 /* MainTabController.swift in Sources */,
+				803903332500138F006EA799 /* LoginViewController.swift in Sources */,
+				8085C1732500076F00A41039 /* ProfileViewController.swift in Sources */,
 				8085C14F2500044100A41039 /* AppDelegate.swift in Sources */,
 				8085C1512500044100A41039 /* SceneDelegate.swift in Sources */,
 			);
