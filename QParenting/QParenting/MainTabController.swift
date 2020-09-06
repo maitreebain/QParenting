@@ -9,7 +9,7 @@
 import UIKit
 
 class MainTabController: UITabBarController {
-    
+
     public lazy var resourcesViewController: ResourcesViewController = {
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
         guard let vc = storyboard.instantiateViewController(identifier: "ResourcesViewController") as? ResourcesViewController else {
@@ -36,6 +36,7 @@ class MainTabController: UITabBarController {
         super.viewDidLoad()
 
         viewControllers = [UINavigationController(rootViewController: resourcesViewController), UINavigationController(rootViewController: forumViewController)]
+        
     }
     
 
