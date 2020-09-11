@@ -22,7 +22,7 @@ class MainTabController: UITabBarController {
     
     public lazy var forumViewController: ForumViewController = {
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
-        guard let vc = storyboard.instantiateViewController(identifier: "ResourcesViewController") as? ForumViewController else {
+        guard let vc = storyboard.instantiateViewController(identifier: "ForumViewController") as? ForumViewController else {
             return ForumViewController()
         }
         vc.tabBarItem = UITabBarItem(title: "Forums", image: UIImage(systemName: "square"), tag: 1)

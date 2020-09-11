@@ -13,6 +13,8 @@ class ResourcesViewController: UIViewController {
     @IBOutlet var resourceSearchBar: UISearchBar!
     @IBOutlet var resourceCollectionView: UICollectionView!
     
+    var resources = Resources.resources
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -30,11 +32,18 @@ extension ResourcesViewController: UISearchBarDelegate {
 
 extension ResourcesViewController: UICollectionViewDelegateFlowLayout, UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        
+        return resources.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "resourceCell", for: indexPath) as? ResourceCell else {
+            fatalError("could not dequeue as ResourceCell")
+        }
+        let resource = resources[indexPath.row]
         
+        cell.configureCell(resource)
+        
+        return cell
     }
     
     

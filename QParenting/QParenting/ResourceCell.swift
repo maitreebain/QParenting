@@ -10,4 +10,9 @@ import UIKit
 
 class ResourceCell: UICollectionViewCell {
     
+    @IBOutlet var resourceLink: UILabel!
+    
+    func configureCell(_ resource: Resources) {
+        resourceLink.text = resource.link
+    }
 }
