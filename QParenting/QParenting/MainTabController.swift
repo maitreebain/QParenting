@@ -30,6 +30,8 @@ class MainTabController: UITabBarController {
         return vc
     }()
     
+    //add profile vc in later
+    
     
 
     override func viewDidLoad() {
