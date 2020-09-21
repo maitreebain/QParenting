@@ -13,11 +13,14 @@ class ResourcesViewController: UIViewController {
     @IBOutlet var resourceSearchBar: UISearchBar!
     @IBOutlet var resourceCollectionView: UICollectionView!
     
-    var resources = [SiteInfo](){
+    var links = "Links"
+    
+    var resources = [SiteInfo]() {
         didSet {
             resourceCollectionView.reloadData()
         }
     }
+    
 //empty array rn
     
     override func viewDidLoad() {
@@ -26,8 +29,18 @@ class ResourcesViewController: UIViewController {
         resourceSearchBar.delegate = self
         resourceCollectionView.dataSource = self
         resourceCollectionView.delegate = self
+        fetchResources()
     }
 
+    
+    func fetchResources() {
+        resources = [SiteInfo]()
+        do {
+            resources = try Bundle.main.parseJSON(with: links)
+        } catch {
+            print("error: \(error)")
+        }
+    }
 }
 
 extension ResourcesViewController: UISearchBarDelegate {
