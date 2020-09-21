@@ -20,24 +20,21 @@ class MainTabController: UITabBarController {
         return vc
     }()
     
-    public lazy var forumViewController: ForumViewController = {
-        let storyboard = UIStoryboard(name: "Main", bundle: nil)
-        guard let vc = storyboard.instantiateViewController(identifier: "ForumViewController") as? ForumViewController else {
-            return ForumViewController()
-        }
-        vc.tabBarItem = UITabBarItem(title: "Forums", image: UIImage(systemName: "square"), tag: 1)
-        vc.navigationItem.backBarButtonItem?.tintColor = .label
-        return vc
-    }()
-    
-    //add profile vc in later
-    
-    
+//    public lazy var forumViewController: ForumViewController = {
+//        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+//        guard let vc = storyboard.instantiateViewController(identifier: "ForumViewController") as? ForumViewController else {
+//            return ForumViewController()
+//        }
+//        vc.tabBarItem = UITabBarItem(title: "Forums", image: UIImage(systemName: "square"), tag: 1)
+//        vc.navigationItem.backBarButtonItem?.tintColor = .label
+//        return vc
+//    }()
 
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        viewControllers = [UINavigationController(rootViewController: resourcesViewController), UINavigationController(rootViewController: forumViewController)]
+        viewControllers = [UINavigationController(rootViewController: resourcesViewController)]
+        //UINavigationController(rootViewController: forumViewController)
         
     }
     

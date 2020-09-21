@@ -13,7 +13,12 @@ class ResourcesViewController: UIViewController {
     @IBOutlet var resourceSearchBar: UISearchBar!
     @IBOutlet var resourceCollectionView: UICollectionView!
     
-    var resources = Resources.resources
+    var resources = [SiteInfo](){
+        didSet {
+            resourceCollectionView.reloadData()
+        }
+    }
+//empty array rn
     
     override func viewDidLoad() {
         super.viewDidLoad()

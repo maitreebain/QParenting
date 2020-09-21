@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		80345469251534530019635F /* CreatePostViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80345468251534530019635F /* CreatePostViewController.swift */; };
+		8034546B25154ACB0019635F /* Links.json in Resources */ = {isa = PBXBuildFile; fileRef = 8034546A25154ACB0019635F /* Links.json */; };
 		8039032F25000CCB006EA799 /* MainTabController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8039032E25000CCB006EA799 /* MainTabController.swift */; };
 		8039033125000DE9006EA799 /* Navigation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8039033025000DE9006EA799 /* Navigation.swift */; };
 		803903332500138F006EA799 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 803903322500138F006EA799 /* LoginViewController.swift */; };
@@ -41,6 +42,7 @@
 
 /* Begin PBXFileReference section */
 		80345468251534530019635F /* CreatePostViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreatePostViewController.swift; sourceTree = "<group>"; };
+		8034546A25154ACB0019635F /* Links.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = Links.json; sourceTree = "<group>"; };
 		8039032E25000CCB006EA799 /* MainTabController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTabController.swift; sourceTree = "<group>"; };
 		8039033025000DE9006EA799 /* Navigation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Navigation.swift; sourceTree = "<group>"; };
 		803903322500138F006EA799 /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
@@ -112,6 +114,7 @@
 				80F070ED2507CEE800847FC2 /* PostModel.swift */,
 				80F070EF2507CEEE00847FC2 /* CommentModel.swift */,
 				80494A4325053A270087FBAF /* ResourceCell.swift */,
+				8034546A25154ACB0019635F /* Links.json */,
 				80F070F12507D1E000847FC2 /* ForumCell.swift */,
 				8039033025000DE9006EA799 /* Navigation.swift */,
 				8085C1522500044100A41039 /* ResourcesViewController.swift */,
@@ -222,6 +225,7 @@
 				8085C15B2500044300A41039 /* LaunchScreen.storyboard in Resources */,
 				8085C1582500044300A41039 /* Assets.xcassets in Resources */,
 				8085C1562500044100A41039 /* Main.storyboard in Resources */,
+				8034546B25154ACB0019635F /* Links.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -1,0 +1,81 @@
+{
+    "resources":
+    [
+        {
+        "name": "A GUIDE TO BEING AN ALLY TO TRANSGENDER AND NONBINARY YOUTH",
+        "link": "https://www.thetrevorproject.org/resources/trevor-support-center/a-guide-to-being-an-ally-to-transgender-and-nonbinary-youth/",
+        "tags": ["Transgender", "Non-Binary"]
+        },
+        {
+        "name": "HOW TO SUPPORT BISEXUAL YOUTH",
+        "link": "https://www.thetrevorproject.org/resources/how-to-support-bisexual-youth/",
+            "tags": ["Bisexual"]
+            
+        },
+        {
+            "name": "Are You an Askable Parent?",
+            "link": "https://advocatesforyouth.org/resources/health-information/are-you-an-askable-parent/",
+            "tags": ["General"]
+        },
+        {
+            "name": "Coming Out: Information for Parents of LGBT Teens",
+            "link": "https://www.healthychildren.org/English/ages-stages/teen/dating-sex/Pages/Four-Stages-of-Coming-Out.aspx",
+            "tags": ["General"]
+        },
+        {
+            "name": "What You Can Do",
+            "link": "https://www.stopbullying.gov/resources/what-you-can-do",
+            "tags": ["General"]
+        },
+        {
+            "name": "6 Things You Can Do To Support LGBTQ People Right Now",
+            "link": "https://www.huffpost.com/entry/things-to-support-lgbtq-people_n_58237923e4b0d9ce6fc08545",
+            "tags": ["General"]
+        },
+        {
+            "name": "10 Ways to Support Your Gay Kid, Whether You Know You Have One or Not",
+            "link": "https://www.huffpost.com/entry/10-ways-to-support-your-gay-kid_b_3461146",
+            "tags": ["General", "Gay"]
+        },
+        {
+            "name": "How to Support Your Gay Child",
+            "link": "https://www.aarp.org/relationships/family/info-03-2011/support_gay_children.html",
+            "tags": ["General", "Gay"]
+        },
+        {
+            "name": "My Son Might Be Gay. What Should I Say to Him?",
+            "link": "https://www.esquire.com/lifestyle/advice/a54491/how-to-talk-to-gay-son/",
+            "tags": ["Gay"]
+        },
+        {
+            "name": "What Do I Do To Help My Lesbian Daughter",
+            "link": "https://visionsteen.com/what-do-i-do-to-help-my-lesbian-daughter/",
+            "tags": ["Lesbian"]
+        },
+        {
+            "name": "What Do I Do To Help My Lesbian Daughter",
+            "link": "        https://www.psychologytoday.com/us/blog/gay-and-lesbian-well-being/201104/what-do-when-your-child-says-im-gay",
+            "tags": ["General", "Gay", "Lesbian"]
+        },
+        {
+            "name": "How to Talk to Your Child Who Is Questioning or Identifies as Lesbian, Gay, Bisexual, Transgender, Queer or Asexual",
+            "link": "https://www.chla.org/blog/rn-remedies/how-talk-your-child-who-questioning-or-identifies-lesbian-gay-bisexual-transgender",
+            "tags": ["General", "Gay", "Lesbian", "Transgender", "Bisexual"]
+        },
+        {
+            "name": "How to Support a Transgender Child or Grandchild",
+            "link": "https://www.nextavenue.org/support-transgender-child-or-grandchild/",
+            "tags": ["Transgender"]
+        },
+        {
+            "name": "How to Support a Transgender Child or Grandchild",
+            "link": "https://www.nextavenue.org/support-transgender-child-or-grandchild/",
+            "tags": ["Transgender"]
+        },
+        {
+            "name": "Strategies for Supporting a Transgender Child",
+            "link": "https://www.psychologytoday.com/us/blog/when-your-adult-child-breaks-your-heart/201703/strategies-supporting-transgender-child",
+            "tags": ["Transgender"]
+        }
+    ]
+}

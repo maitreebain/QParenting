@@ -10,21 +10,27 @@ import UIKit
 
 class CreatePostViewController: UIViewController {
 
+    @IBOutlet var titleLabel: UITextField!
+    @IBOutlet var descriptionTextView: UITextView!
+    
+    private var user = User()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        // Do any additional setup after loading the view.
     }
     
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
+    
+    @IBAction func cancelActionButtonPressed(_ sender: UIBarButtonItem) {
+        dismiss(animated: true)
     }
-    */
-
+    
+    
+    @IBAction func postActionButtonPressed(_ sender: UIBarButtonItem) {
+        //titlelabel && description text
+        
+//        var post = Post(author: user.username, title: <#T##String#>, content: <#T##String#>, datePosted: <#T##Date#>, comments: <#T##[Comment]#>)
+    }
+    
+    
 }

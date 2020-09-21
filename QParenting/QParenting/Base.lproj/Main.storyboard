@@ -240,10 +240,10 @@
             </objects>
             <point key="canvasLocation" x="5095.652173913044" y="151.33928571428569"/>
         </scene>
-        <!--View Controller-->
+        <!--Create Post View Controller-->
         <scene sceneID="ABG-o9-WbJ">
             <objects>
-                <viewController id="bnr-oK-GwR" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="CreatePostViewController" id="bnr-oK-GwR" customClass="CreatePostViewController" customModule="QParenting" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="eQc-xG-i0x">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="842"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -292,9 +292,21 @@
                         <viewLayoutGuide key="safeArea" id="TdL-eF-zbl"/>
                     </view>
                     <navigationItem key="navigationItem" id="GjR-PU-7ef">
-                        <barButtonItem key="leftBarButtonItem" title="Cancel" id="DeQ-lY-WHQ"/>
-                        <barButtonItem key="rightBarButtonItem" image="checkmark.square.fill" catalog="system" id="mOo-y5-53H"/>
+                        <barButtonItem key="leftBarButtonItem" title="Cancel" id="DeQ-lY-WHQ">
+                            <connections>
+                                <action selector="cancelActionButtonPressed:" destination="bnr-oK-GwR" id="LNz-MS-h9n"/>
+                            </connections>
+                        </barButtonItem>
+                        <barButtonItem key="rightBarButtonItem" image="checkmark.square.fill" catalog="system" id="mOo-y5-53H">
+                            <connections>
+                                <action selector="postActionButtonPressed:" destination="bnr-oK-GwR" id="Qhh-sE-dLi"/>
+                            </connections>
+                        </barButtonItem>
                     </navigationItem>
+                    <connections>
+                        <outlet property="descriptionTextView" destination="kp4-Ii-1Q8" id="jHT-BO-EAj"/>
+                        <outlet property="titleLabel" destination="jsB-60-9nE" id="acX-iB-Ztv"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ltR-fH-wEZ" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>

@@ -12,7 +12,7 @@ class ResourceCell: UICollectionViewCell {
     
     @IBOutlet var resourceLink: UILabel!
     
-    func configureCell(_ resource: Resources) {
+    func configureCell(_ resource: SiteInfo) {
         resourceLink.text = resource.link
     }
 }
