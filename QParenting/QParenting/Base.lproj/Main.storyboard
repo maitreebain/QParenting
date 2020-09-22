@@ -47,6 +47,9 @@
                     <navigationItem key="navigationItem" title="Resources" id="8Ek-1F-z67">
                         <barButtonItem key="leftBarButtonItem" image="rectangle.and.paperclip" catalog="system" id="yUR-0Q-DQH">
                             <color key="tintColor" red="0.5518820204849334" green="0.39508221756015238" blue="0.88166243654822329" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                            <connections>
+                                <segue destination="W1f-sT-bNl" kind="presentation" id="KKX-8a-bZM"/>
+                            </connections>
                         </barButtonItem>
                     </navigationItem>
                     <connections>
@@ -57,6 +60,21 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="2434.7826086956525" y="-563.16964285714278"/>
+        </scene>
+        <!--View Controller-->
+        <scene sceneID="egB-kc-jcl">
+            <objects>
+                <viewController id="W1f-sT-bNl" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="CWE-Xh-eip">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="842"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <viewLayoutGuide key="safeArea" id="C9U-kK-d7f"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="19O-GJ-YMh" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="3261" y="-556"/>
         </scene>
         <!--Forum-->
         <scene sceneID="Ebo-4l-HGL">

@@ -16,23 +16,41 @@
                 <rect key="frame" x="0.0" y="0.0" width="527" height="156"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="UVE-9w-FCX">
-                        <rect key="frame" x="8" y="8" width="511" height="21"/>
-                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="91u-aK-eFG">
+                        <rect key="frame" x="8" y="8" width="156" height="140"/>
+                    </imageView>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Tags" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="XbZ-NW-KZs">
+                        <rect key="frame" x="172" y="127" width="347" height="21"/>
+                        <fontDescription key="fontDescription" name="Charter-Roman" family="Charter" pointSize="17"/>
+                        <nil key="textColor"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Title here" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="UVE-9w-FCX">
+                        <rect key="frame" x="172" y="16" width="347" height="23"/>
+                        <fontDescription key="fontDescription" name="Georgia" family="Georgia" pointSize="20"/>
                         <nil key="textColor"/>
                         <nil key="highlightedColor"/>
                     </label>
                 </subviews>
                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                 <constraints>
+                    <constraint firstItem="91u-aK-eFG" firstAttribute="width" secondItem="Z4u-yg-caL" secondAttribute="height" multiplier="1:1" id="1pk-9s-EOV"/>
+                    <constraint firstItem="UVE-9w-FCX" firstAttribute="leading" secondItem="91u-aK-eFG" secondAttribute="trailing" constant="8" id="3M6-u2-ysJ"/>
                     <constraint firstAttribute="trailing" secondItem="UVE-9w-FCX" secondAttribute="trailing" constant="8" id="4ec-yQ-FHe"/>
-                    <constraint firstItem="UVE-9w-FCX" firstAttribute="top" secondItem="Z4u-yg-caL" secondAttribute="top" constant="8" id="BFf-bD-vhL"/>
-                    <constraint firstItem="UVE-9w-FCX" firstAttribute="leading" secondItem="Z4u-yg-caL" secondAttribute="leading" constant="8" id="e0o-HP-vfm"/>
+                    <constraint firstItem="UVE-9w-FCX" firstAttribute="top" secondItem="Z4u-yg-caL" secondAttribute="top" constant="16" id="BFf-bD-vhL"/>
+                    <constraint firstItem="XbZ-NW-KZs" firstAttribute="leading" secondItem="91u-aK-eFG" secondAttribute="trailing" constant="8" id="BcF-eJ-rwT"/>
+                    <constraint firstItem="91u-aK-eFG" firstAttribute="leading" secondItem="Z4u-yg-caL" secondAttribute="leading" constant="8" id="R8g-Dd-wxm"/>
+                    <constraint firstAttribute="bottom" secondItem="XbZ-NW-KZs" secondAttribute="bottom" constant="8" id="ZfH-Tl-SLE"/>
+                    <constraint firstItem="91u-aK-eFG" firstAttribute="top" secondItem="Z4u-yg-caL" secondAttribute="top" constant="8" id="eLg-Gd-MVQ"/>
+                    <constraint firstAttribute="bottom" secondItem="91u-aK-eFG" secondAttribute="bottom" constant="8" id="zKi-na-BgA"/>
+                    <constraint firstAttribute="trailing" secondItem="XbZ-NW-KZs" secondAttribute="trailing" constant="8" id="ziK-xW-Glx"/>
                 </constraints>
             </collectionViewCellContentView>
             <size key="customSize" width="527" height="156"/>
             <connections>
+                <outlet property="resourceImage" destination="91u-aK-eFG" id="so6-08-Y15"/>
                 <outlet property="resourceLink" destination="UVE-9w-FCX" id="mq2-F0-Hsr"/>
+                <outlet property="tags" destination="XbZ-NW-KZs" id="QAC-pB-qIJ"/>
             </connections>
             <point key="canvasLocation" x="322.46376811594206" y="125.22321428571428"/>
         </collectionViewCell>

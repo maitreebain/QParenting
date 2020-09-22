@@ -10,9 +10,12 @@ import UIKit
 
 class ResourceCell: UICollectionViewCell {
     
+    @IBOutlet var resourceImage: UIImageView!
     @IBOutlet var resourceLink: UILabel!
+    @IBOutlet var tags: UILabel!
     
     func configureCell(_ resource: SiteInfo) {
-        resourceLink.text = resource.link
+        resourceLink.text = resource.name.capitalized
+        //make network call
     }
 }

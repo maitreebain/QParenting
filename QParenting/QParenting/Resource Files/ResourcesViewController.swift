@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import SafariServices
 
 enum Tags: String, CaseIterable {
     case general = "general"
@@ -22,6 +23,8 @@ class ResourcesViewController: UIViewController {
     @IBOutlet var resourceCollectionView: UICollectionView!
     
     var links = "Links"
+    var imageNames = ["prideB", "prideC", "prideD"]
+    var imagesArr = [UIImage]()
     
     var resources = [SiteInfo]() {
         didSet {
@@ -39,8 +42,9 @@ class ResourcesViewController: UIViewController {
         resourceCollectionView.delegate = self
         fetchResources()
         resourceCollectionView.register(UINib(nibName: "ResourceCell", bundle: nil), forCellWithReuseIdentifier: "resourceCell")
-//        resourceSearchBar.showsScopeBar = true
-//        resourceSearchBar.scopeButtonTitles = Tags.allCases.map { $0.rawValue }
+        //        resourceSearchBar.showsScopeBar = true
+        //        resourceSearchBar.scopeButtonTitles = Tags.allCases.map { $0.rawValue }
+        randomImages()
     }
     
     func fetchResources() {
@@ -49,6 +53,22 @@ class ResourcesViewController: UIViewController {
             resources = try Bundle.main.parseJSON(with: links)
         } catch {
             print("error: \(error)")
+        }
+    }
+    
+    func fetchArticle(for link: String) {
+        
+        if let url = URL(string: link) {
+            UIApplication.shared.open(url)
+        }
+    }
+    
+    func randomImages() {
+        for name in imageNames {
+        let img = UIImage(named: name)
+            if let image = img {
+                imagesArr.append(image)
+            }
         }
     }
 }
@@ -79,11 +99,20 @@ extension ResourcesViewController: UICollectionViewDelegateFlowLayout, UICollect
             fatalError("could not dequeue as ResourceCell")
         }
         let resource = resources[indexPath.row]
-        
+        if let image = imagesArr.randomElement() {
+            cell.resourceImage.image = image
+        }
         cell.configureCell(resource)
         
         return cell
     }
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        let resource = resources[indexPath.row]
+        fetchArticle(for: resource.link)
+        
+    }
+    
     
     
 }
