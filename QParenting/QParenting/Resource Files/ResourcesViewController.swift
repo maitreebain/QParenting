@@ -8,6 +8,14 @@
 
 import UIKit
 
+enum Tags: String, CaseIterable {
+    case general = "general"
+    case gay = "gay"
+    case lesbian = "lesbian"
+    case bisexual = "bisexual"
+    case transgender = "transgender"
+}
+
 class ResourcesViewController: UIViewController {
     
     @IBOutlet var resourceSearchBar: UISearchBar!
@@ -21,7 +29,7 @@ class ResourcesViewController: UIViewController {
         }
     }
     
-//empty array rn
+    //need to add headerView
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -30,8 +38,10 @@ class ResourcesViewController: UIViewController {
         resourceCollectionView.dataSource = self
         resourceCollectionView.delegate = self
         fetchResources()
+        resourceCollectionView.register(UINib(nibName: "ResourceCell", bundle: nil), forCellWithReuseIdentifier: "resourceCell")
+//        resourceSearchBar.showsScopeBar = true
+//        resourceSearchBar.scopeButtonTitles = Tags.allCases.map { $0.rawValue }
     }
-
     
     func fetchResources() {
         resources = [SiteInfo]()
@@ -49,6 +59,17 @@ extension ResourcesViewController: UISearchBarDelegate {
 
 
 extension ResourcesViewController: UICollectionViewDelegateFlowLayout, UICollectionViewDataSource {
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        let maxSize: CGSize = UIScreen.main.bounds.size
+        let spacingBetweenItems: CGFloat = 10
+        let numberOfItems: CGFloat = 1
+        let itemHeight: CGFloat = maxSize.height * 0.20
+        let totalSpacing: CGFloat = (2 * spacingBetweenItems) + (numberOfItems - 1) * spacingBetweenItems
+        let itemWidth: CGFloat = (maxSize.width - totalSpacing) / numberOfItems
+        return CGSize(width: itemWidth, height: itemHeight)
+    }
+    
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return resources.count
     }
