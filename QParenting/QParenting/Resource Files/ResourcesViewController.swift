@@ -22,8 +22,6 @@ class ResourcesViewController: UIViewController {
     var resources = [SiteInfo]()
     
     var dataSource = [SiteInfo]()
-
-    //need to add headerView
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -34,9 +32,6 @@ class ResourcesViewController: UIViewController {
         fetchResources()
         dataSource = resources
         resourceCollectionView.register(UINib(nibName: "ResourceCell", bundle: nil), forCellWithReuseIdentifier: "resourceCell")
-        //        resourceSearchBar.showsScopeBar = true
-        //        resourceSearchBar.scopeButtonTitles = Tags.allCases.map { $0.rawValue }
-//        resourceCollectionView.register(HeaderView.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: "resourceHeader")
         randomImages()
     }
     
@@ -102,7 +97,6 @@ extension ResourcesViewController: UISearchResultsUpdating, UISearchBarDelegate 
         
         search(searchText: searchController.searchBar.text, searchTag: nil)
     }
-    
 }
 
 extension ResourcesViewController: UISearchControllerDelegate {
@@ -114,7 +108,6 @@ extension ResourcesViewController: UISearchControllerDelegate {
 extension ResourcesViewController: UICollectionViewDelegateFlowLayout, UICollectionViewDataSource {
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        if collectionView == resourceCollectionView {
             let maxSize: CGSize = UIScreen.main.bounds.size
             let spacingBetweenItems: CGFloat = 10
             let numberOfItems: CGFloat = 1
@@ -122,35 +115,18 @@ extension ResourcesViewController: UICollectionViewDelegateFlowLayout, UICollect
             let totalSpacing: CGFloat = (2 * spacingBetweenItems) + (numberOfItems - 1) * spacingBetweenItems
             let itemWidth: CGFloat = (maxSize.width - totalSpacing) / numberOfItems
             return CGSize(width: itemWidth, height: itemHeight)
-        }
-        if collectionView == collectionView.supplementaryView(forElementKind: UICollectionView.elementKindSectionHeader, at: indexPath) {
-            let maxSize: CGSize = UIScreen.main.bounds.size
-            let itemWidth: CGFloat = maxSize.width * 0.20
-            let itemHeight: CGFloat = maxSize.height * 0.18
-            return CGSize(width: itemWidth, height: itemHeight)
-        }
-        return CGSize(width: 0.5, height: 0.5)
     }
-    
-//    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {
-//        return CGSize(width: collectionView.frame.width, height: 100)
-//    }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {
         
-        return CGSize(width: collectionView.bounds.width, height: collectionView.bounds.height * 0.20)
+        return CGSize(width: collectionView.bounds.width, height: collectionView.bounds.height * 0.10)
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        if collectionView == resourceCollectionView {
         return dataSource.count
-        } else {
-            return Tag.allCases.count
-        }
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        if collectionView == resourceCollectionView {
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "resourceCell", for: indexPath) as? ResourceCell else {
             fatalError("could not dequeue as ResourceCell")
         }
@@ -161,16 +137,6 @@ extension ResourcesViewController: UICollectionViewDelegateFlowLayout, UICollect
         cell.configureCell(resource)
         
         return cell
-            
-        } else {
-            guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "tagCell", for: indexPath) as? TagCell else {
-                fatalError("could not dequeue tagCell")
-            }
-            
-            let tag = Tag.allCases[indexPath.row]
-            cell.configureTag(tag: tag)
-            return cell
-        }
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {

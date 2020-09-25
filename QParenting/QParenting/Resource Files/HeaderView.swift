@@ -37,17 +37,17 @@ class HeaderView: UICollectionReusableView {
     }
     
     func configure() {
-//        let label = UILabel()
-//        label.text = "General"
         stackView.distribution = .equalSpacing
         for tag in Tag.allCases {
             let button = UIButton(type: .system)
-//            button.setTitleColor(.black, for: .normal)
             button.setTitle(tag.rawValue, for: .normal)
             stackView.addArrangedSubview(button)
         }
+        //buttons need actions
+    }
+    
+    @objc func tagSelected(sender: UIButton) {
         
-//        stackView.addArrangedSubview(label)
     }
     
 }
