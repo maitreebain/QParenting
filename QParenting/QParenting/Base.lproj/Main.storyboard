@@ -16,31 +16,42 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <searchBar contentMode="redraw" translatesAutoresizingMaskIntoConstraints="NO" id="UGi-Px-Xsb">
-                                <rect key="frame" x="0.0" y="88" width="414" height="56"/>
-                                <textInputTraits key="textInputTraits"/>
-                            </searchBar>
                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="3hr-o4-AXN">
-                                <rect key="frame" x="0.0" y="144" width="414" height="669"/>
+                                <rect key="frame" x="0.0" y="88" width="414" height="725"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                 <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="s9e-Bx-diY">
                                     <size key="itemSize" width="414" height="142"/>
-                                    <size key="headerReferenceSize" width="0.0" height="0.0"/>
+                                    <size key="headerReferenceSize" width="50" height="94"/>
                                     <size key="footerReferenceSize" width="0.0" height="0.0"/>
                                     <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                                 </collectionViewFlowLayout>
                                 <cells/>
+                                <collectionReusableView key="sectionHeaderView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" reuseIdentifier="resourceHeader" id="Klk-Fw-S65" customClass="HeaderView" customModule="QParenting" customModuleProvider="target">
+                                    <rect key="frame" x="0.0" y="0.0" width="414" height="94"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <stackView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Brt-ut-HmP">
+                                            <rect key="frame" x="0.0" y="0.0" width="414" height="94"/>
+                                        </stackView>
+                                    </subviews>
+                                    <constraints>
+                                        <constraint firstAttribute="bottom" secondItem="Brt-ut-HmP" secondAttribute="bottom" id="hHT-lS-1tc"/>
+                                        <constraint firstItem="Brt-ut-HmP" firstAttribute="top" secondItem="Klk-Fw-S65" secondAttribute="top" id="iCC-H4-bWy"/>
+                                        <constraint firstAttribute="trailing" secondItem="Brt-ut-HmP" secondAttribute="trailing" id="shs-84-ah4"/>
+                                        <constraint firstItem="Brt-ut-HmP" firstAttribute="leading" secondItem="Klk-Fw-S65" secondAttribute="leading" id="vao-BR-NC4"/>
+                                    </constraints>
+                                    <connections>
+                                        <outlet property="stackView" destination="Brt-ut-HmP" id="DaS-ev-mxP"/>
+                                    </connections>
+                                </collectionReusableView>
                             </collectionView>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <constraints>
-                            <constraint firstItem="UGi-Px-Xsb" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="2mH-wC-gna"/>
-                            <constraint firstItem="3hr-o4-AXN" firstAttribute="top" secondItem="UGi-Px-Xsb" secondAttribute="bottom" id="6Rz-1r-uYc"/>
-                            <constraint firstItem="UGi-Px-Xsb" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" id="CeT-Qo-vuF"/>
                             <constraint firstItem="3hr-o4-AXN" firstAttribute="trailing" secondItem="6Tk-OE-BBY" secondAttribute="trailing" id="Fgn-Vf-hR6"/>
-                            <constraint firstItem="UGi-Px-Xsb" firstAttribute="trailing" secondItem="6Tk-OE-BBY" secondAttribute="trailing" id="LXv-Ic-QS3"/>
                             <constraint firstItem="3hr-o4-AXN" firstAttribute="bottom" secondItem="6Tk-OE-BBY" secondAttribute="bottom" id="Nps-y8-4FL"/>
                             <constraint firstItem="3hr-o4-AXN" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="lk0-uG-MhD"/>
+                            <constraint firstItem="3hr-o4-AXN" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" id="opy-G3-K75"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
@@ -53,8 +64,7 @@
                         </barButtonItem>
                     </navigationItem>
                     <connections>
-                        <outlet property="resourceCollectionView" destination="3hr-o4-AXN" id="GaW-ih-MVN"/>
-                        <outlet property="resourceSearchBar" destination="UGi-Px-Xsb" id="Avw-FB-9tc"/>
+                        <outlet property="resourceCollectionView" destination="3hr-o4-AXN" id="73x-Jf-HkF"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>

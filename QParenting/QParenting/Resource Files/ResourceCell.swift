@@ -17,5 +17,6 @@ class ResourceCell: UICollectionViewCell {
     func configureCell(_ resource: SiteInfo) {
         resourceLink.text = resource.name.capitalized
         //make network call
+        tags.text = resource.tags.joined(separator: ", ")
     }
 }
