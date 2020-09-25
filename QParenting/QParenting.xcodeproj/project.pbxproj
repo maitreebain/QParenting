@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 52;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -23,6 +23,7 @@
 		8085C1662500044300A41039 /* QParentingTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8085C1652500044300A41039 /* QParentingTests.swift */; };
 		8085C1712500076800A41039 /* ForumViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8085C1702500076800A41039 /* ForumViewController.swift */; };
 		8087F856251D05E50008AE07 /* HeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8087F855251D05E50008AE07 /* HeaderView.swift */; };
+		8090E593251E422C007CFCC9 /* DataPersistence in Frameworks */ = {isa = PBXBuildFile; productRef = 8090E592251E422C007CFCC9 /* DataPersistence */; };
 		80F070EC2507CAE300847FC2 /* UserModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80F070EB2507CAE300847FC2 /* UserModel.swift */; };
 		80F070EE2507CEE800847FC2 /* PostModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80F070ED2507CEE800847FC2 /* PostModel.swift */; };
 		80F070F02507CEEE00847FC2 /* CommentModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80F070EF2507CEEE00847FC2 /* CommentModel.swift */; };
@@ -75,6 +76,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8090E593251E422C007CFCC9 /* DataPersistence in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -168,6 +170,9 @@
 			dependencies = (
 			);
 			name = QParenting;
+			packageProductDependencies = (
+				8090E592251E422C007CFCC9 /* DataPersistence */,
+			);
 			productName = QParenting;
 			productReference = 8085C14B2500044100A41039 /* QParenting.app */;
 			productType = "com.apple.product-type.application";
@@ -218,6 +223,9 @@
 				Base,
 			);
 			mainGroup = 8085C1422500044100A41039;
+			packageReferences = (
+				8090E591251E422C007CFCC9 /* XCRemoteSwiftPackageReference "DataPersistence" */,
+			);
 			productRefGroup = 8085C14C2500044100A41039 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -537,6 +545,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		8090E591251E422C007CFCC9 /* XCRemoteSwiftPackageReference "DataPersistence" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/alexpaul/DataPersistence";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.1.0;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		8090E592251E422C007CFCC9 /* DataPersistence */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 8090E591251E422C007CFCC9 /* XCRemoteSwiftPackageReference "DataPersistence" */;
+			productName = DataPersistence;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 8085C1432500044100A41039 /* Project object */;
 }

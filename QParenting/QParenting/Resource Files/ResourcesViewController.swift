@@ -16,7 +16,7 @@ class ResourcesViewController: UIViewController {
     private var searchController: UISearchController!
     
     var links = "Links"
-    var imageNames = ["prideB", "prideC", "prideD"]
+    var imageNames = ["prideB", "prideC", "prideD", "prideE", "prideF"]
     var imagesArr = [UIImage]()
     
     var resources = [SiteInfo]()
@@ -118,7 +118,6 @@ extension ResourcesViewController: UICollectionViewDelegateFlowLayout, UICollect
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {
-        
         return CGSize(width: collectionView.bounds.width, height: collectionView.bounds.height * 0.10)
     }
     
@@ -148,7 +147,6 @@ extension ResourcesViewController: UICollectionViewDelegateFlowLayout, UICollect
         guard let headerView = collectionView.dequeueReusableSupplementaryView(ofKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: "resourceHeader", for: indexPath) as? HeaderView else {
             fatalError("could not dequeue a HeaderView")
         }
-        
         headerView.configure()
         headerView.delegate = self
         return headerView
