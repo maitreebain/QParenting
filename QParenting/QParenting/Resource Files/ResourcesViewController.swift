@@ -9,11 +9,27 @@
 import UIKit
 import SafariServices
 
+enum SectionKind: Int, CaseIterable {
+  case tag, article
+  
+  var orthogonalBehaviour: UICollectionLayoutSectionOrthogonalScrollingBehavior {
+    switch self {
+    case .tag:
+      return .continuous
+    case .article:
+      return .none
+    }
+  }
+    
+}
+
 class ResourcesViewController: UIViewController {
     
     @IBOutlet var resourceCollectionView: UICollectionView!
     
     private var searchController: UISearchController!
+    
+    var cvDataSource = UICollectionViewDiffableDataSource<SectionKind, AnyHashable>()
     
     var links = "Links"
     var imageNames = ["prideB", "prideC", "prideD", "prideE", "prideF"]
