@@ -61,6 +61,39 @@ class ResourcesViewController: UIViewController {
         searchController.delegate = self
     }
     
+    private func createLayout() -> UICollectionViewLayout {
+      let layout = UICollectionViewCompositionalLayout { (sectionIndex, layoutEnvironment) -> NSCollectionLayoutSection? in
+        
+        guard let sectionType = SectionKind(rawValue: sectionIndex) else {
+          fatalError("could not get a section")
+        }
+        
+        let itemWidth: NSCollectionLayoutDimension = sectionIndex == 0 ? .estimated(100) : .fractionalWidth(1.0)
+        let itemSize = NSCollectionLayoutSize(widthDimension: itemWidth, heightDimension: .fractionalHeight(1.0))
+        let item = NSCollectionLayoutItem(layoutSize: itemSize)
+        if sectionType == .tag {
+          item.edgeSpacing = NSCollectionLayoutEdgeSpacing(leading: .fixed(8), top: .fixed(8), trailing: .fixed(8), bottom: .fixed(8))
+        } else {
+          let spacing: CGFloat = 5
+          item.contentInsets = NSDirectionalEdgeInsets(top: spacing, leading: spacing, bottom: spacing, trailing: spacing)
+        }
+        
+        let groupWidth: NSCollectionLayoutDimension = sectionIndex == 0 ? .estimated(100) : .fractionalWidth(1.0)
+        let groupHeight = sectionIndex == 0 ? NSCollectionLayoutDimension.absolute(44) : NSCollectionLayoutDimension.fractionalWidth(0.50)
+              
+        let groupSize = NSCollectionLayoutSize(widthDimension: groupWidth, heightDimension: groupHeight)
+        let group = NSCollectionLayoutGroup.horizontal(layoutSize: groupSize, subitems: [item])
+        
+        let section = NSCollectionLayoutSection(group: group)
+        section.contentInsets = NSDirectionalEdgeInsets(top: 10, leading: 5, bottom: 5, trailing: 5)
+        
+        section.orthogonalScrollingBehavior = sectionType.orthogonalBehaviour
+              
+        return section
+      }
+      return layout
+    }
+    
     func fetchResources() {
         resources = [SiteInfo]()
         do {
