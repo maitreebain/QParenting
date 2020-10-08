@@ -24,12 +24,13 @@ enum SectionKind: Int, CaseIterable {
 }
 
 class ResourcesViewController: UIViewController {
-    
-    @IBOutlet var resourceCollectionView: UICollectionView!
+
+    private var resourceCollectionView: UICollectionView!
     
     private var searchController: UISearchController!
     
-    var cvDataSource = UICollectionViewDiffableDataSource<SectionKind, AnyHashable>()
+    typealias DataSource = UICollectionViewDiffableDataSource<SectionKind, AnyHashable>
+    private var dataSource: DataSource!
     
     var links = "Links"
     var imageNames = ["prideB", "prideC", "prideD", "prideE", "prideF"]
@@ -37,18 +38,28 @@ class ResourcesViewController: UIViewController {
     
     var resources = [SiteInfo]()
     
-    var dataSource = [SiteInfo]()
+    var linkSources = [SiteInfo]()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        resourceCollectionView.dataSource = self
-        resourceCollectionView.delegate = self
+        configureCollectionView()
+        configureDataSource()
         initSearchController()
-        fetchResources()
-        dataSource = resources
+        resources = fetchResources()
+        linkSources = resources
         resourceCollectionView.register(UINib(nibName: "ResourceCell", bundle: nil), forCellWithReuseIdentifier: "resourceCell")
         randomImages()
+    }
+    
+    private func configureCollectionView() {
+      resourceCollectionView = UICollectionView(frame: view.bounds, collectionViewLayout: createLayout())
+      resourceCollectionView.register(TagCell.self, forCellWithReuseIdentifier: TagCell.reuseIdentifier)
+      resourceCollectionView.register(ResourceCell.self, forCellWithReuseIdentifier: ResourceCell.reuseIdentifier)
+      resourceCollectionView.backgroundColor = .systemBackground
+      resourceCollectionView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+      resourceCollectionView.delegate = self
+      view.addSubview(resourceCollectionView)
     }
     
     private func initSearchController() {
@@ -94,13 +105,61 @@ class ResourcesViewController: UIViewController {
       return layout
     }
     
-    func fetchResources() {
+      private func configureDataSource() {
+        dataSource = DataSource(collectionView: resourceCollectionView, cellProvider: { (collectionView, indexPath, item) -> UICollectionViewCell? in
+          if indexPath.section == 0 {
+            guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: TagCell.reuseIdentifier, for: indexPath) as? TagCell else {
+              fatalError("could not dequeue a TagCell")
+            }
+            cell.tagLabel.text = "\(item)".capitalized
+            return cell
+          } else {
+            guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: ResourceCell.reuseIdentifier, for: indexPath) as? ResourceCell else {
+              fatalError("could not dequeue a LabelCell")
+            }
+            
+            if let image = self.imagesArr.randomElement() {
+                    cell.resourceImage.image = image
+                }
+            let resource = self.resources[indexPath.row]
+            cell.configureCell(resource)
+            
+            return cell
+          }
+        })
+        var snapshot = NSDiffableDataSourceSnapshot<SectionKind, AnyHashable>()
+        snapshot.appendSections([.tag, .article])
+        
+        let tags: [Tag] = Tag.allCases
+        
+        let articles: [SiteInfo] = fetchResources()
+        snapshot.appendItems(tags, toSection: .tag)
+        snapshot.appendItems(articles, toSection: .article)
+        dataSource.apply(snapshot, animatingDifferences: false)
+        
+        
+//        dataSource.supplementaryViewProvider = { (collectionView, kind, indexPath) in
+//          guard let headerView = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: HeaderView.reuseIdentifier, for: indexPath) as? HeaderView else {
+//            fatalError()
+//          }
+//          return headerView
+//        }
+      }
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        
+    }
+    
+    
+    func fetchResources() -> [SiteInfo]{
         resources = [SiteInfo]()
         do {
             resources = try Bundle.main.parseJSON(with: links)
+            return resources
         } catch {
             print("error: \(error)")
         }
+        return resources
     }
     
     func fetchArticle(for link: String) {
@@ -117,7 +176,8 @@ class ResourcesViewController: UIViewController {
                 searchText = nil
             }
         }
-        dataSource = resources.filter {
+        
+        linkSources = resources.filter {
             var isMatch = true
             if let text = searchText {
                 isMatch = isMatch && $0.name.lowercased().contains(text.lowercased())
@@ -154,54 +214,58 @@ extension ResourcesViewController: UISearchControllerDelegate {
     }
 }
 
-extension ResourcesViewController: UICollectionViewDelegateFlowLayout, UICollectionViewDataSource {
-    
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-            let maxSize: CGSize = UIScreen.main.bounds.size
-            let spacingBetweenItems: CGFloat = 10
-            let numberOfItems: CGFloat = 1
-            let itemHeight: CGFloat = maxSize.height * 0.20
-            let totalSpacing: CGFloat = (2 * spacingBetweenItems) + (numberOfItems - 1) * spacingBetweenItems
-            let itemWidth: CGFloat = (maxSize.width - totalSpacing) / numberOfItems
-            return CGSize(width: itemWidth, height: itemHeight)
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {
-        return CGSize(width: collectionView.bounds.width, height: collectionView.bounds.height * 0.10)
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return dataSource.count
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "resourceCell", for: indexPath) as? ResourceCell else {
-            fatalError("could not dequeue as ResourceCell")
-        }
-        let resource = dataSource[indexPath.row]
-        if let image = imagesArr.randomElement() {
-            cell.resourceImage.image = image
-        }
-        cell.configureCell(resource)
-        
-        return cell
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        let resource = dataSource[indexPath.row]
-        fetchArticle(for: resource.link)
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
-        guard let headerView = collectionView.dequeueReusableSupplementaryView(ofKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: "resourceHeader", for: indexPath) as? HeaderView else {
-            fatalError("could not dequeue a HeaderView")
-        }
-        headerView.configure()
-        headerView.delegate = self
-        return headerView
-    }
+extension ResourcesViewController: UICollectionViewDelegate {
     
 }
+
+//extension ResourcesViewController: UICollectionViewDelegateFlowLayout, UICollectionViewDataSource {
+//
+//    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+//            let maxSize: CGSize = UIScreen.main.bounds.size
+//            let spacingBetweenItems: CGFloat = 10
+//            let numberOfItems: CGFloat = 1
+//            let itemHeight: CGFloat = maxSize.height * 0.20
+//            let totalSpacing: CGFloat = (2 * spacingBetweenItems) + (numberOfItems - 1) * spacingBetweenItems
+//            let itemWidth: CGFloat = (maxSize.width - totalSpacing) / numberOfItems
+//            return CGSize(width: itemWidth, height: itemHeight)
+//    }
+//
+//    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {
+//        return CGSize(width: collectionView.bounds.width, height: collectionView.bounds.height * 0.10)
+//    }
+//
+//    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+//        return dataSource.count
+//    }
+//
+//    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+//        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "resourceCell", for: indexPath) as? ResourceCell else {
+//            fatalError("could not dequeue as ResourceCell")
+//        }
+//        let resource = dataSource[indexPath.row]
+//        if let image = imagesArr.randomElement() {
+//            cell.resourceImage.image = image
+//        }
+//        cell.configureCell(resource)
+//
+//        return cell
+//    }
+//
+//    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+//        let resource = dataSource[indexPath.row]
+//        fetchArticle(for: resource.link)
+//    }
+//
+//    func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
+//        guard let headerView = collectionView.dequeueReusableSupplementaryView(ofKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: "resourceHeader", for: indexPath) as? HeaderView else {
+//            fatalError("could not dequeue a HeaderView")
+//        }
+//        headerView.configure()
+//        headerView.delegate = self
+//        return headerView
+//    }
+//
+//}
 
 extension ResourcesViewController: HeaderViewDelegate {
     

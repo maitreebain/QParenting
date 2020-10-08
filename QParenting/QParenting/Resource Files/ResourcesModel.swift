@@ -8,11 +8,11 @@
 
 import UIKit
 
-struct Resource: Decodable {
+struct Resource: Decodable, Hashable {
     var resources: [SiteInfo]
 }
 
-struct SiteInfo: Decodable {
+struct SiteInfo: Decodable, Hashable {
         let name: String
         let link: String
         let tags: [String]
