@@ -9,11 +9,30 @@
 import UIKit
 import SafariServices
 
-class ResourcesViewController: UIViewController {
+enum SectionKind: Int, CaseIterable {
+  case tag, article
+  
+  var orthogonalBehaviour: UICollectionLayoutSectionOrthogonalScrollingBehavior {
+    switch self {
+    case .tag:
+      return .continuous
+    case .article:
+      return .none
+//    case .recommendations:
+//        return .none
+    }
+  }
     
-    @IBOutlet var resourceCollectionView: UICollectionView!
+}
+
+class ResourcesViewController: UIViewController {
+
+    private var resourceCollectionView: UICollectionView!
     
     private var searchController: UISearchController!
+    
+    typealias DataSource = UICollectionViewDiffableDataSource<SectionKind, AnyHashable>
+    private var dataSource: DataSource!
     
     var links = "Links"
     var imageNames = ["prideB", "prideC", "prideD", "prideE", "prideF"]
@@ -21,18 +40,27 @@ class ResourcesViewController: UIViewController {
     
     var resources = [SiteInfo]()
     
-    var dataSource = [SiteInfo]()
+    var linkSources = [SiteInfo]()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        resourceCollectionView.dataSource = self
-        resourceCollectionView.delegate = self
-        initSearchController()
-        fetchResources()
-        dataSource = resources
-        resourceCollectionView.register(UINib(nibName: "ResourceCell", bundle: nil), forCellWithReuseIdentifier: "resourceCell")
         randomImages()
+        configureCollectionView()
+        configureDataSource()
+        initSearchController()
+        resources = fetchResources()
+        linkSources = resources
+    }
+    
+    private func configureCollectionView() {
+      resourceCollectionView = UICollectionView(frame: view.bounds, collectionViewLayout: createLayout())
+      resourceCollectionView.register(TagCell.self, forCellWithReuseIdentifier: TagCell.reuseIdentifier)
+        resourceCollectionView.register(UINib(nibName: "ResourceCell", bundle: nil), forCellWithReuseIdentifier: ResourceCell.reuseIdentifier)
+      resourceCollectionView.backgroundColor = .systemBackground
+      resourceCollectionView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+      resourceCollectionView.delegate = self
+      view.addSubview(resourceCollectionView)
     }
     
     private func initSearchController() {
@@ -45,13 +73,114 @@ class ResourcesViewController: UIViewController {
         searchController.delegate = self
     }
     
-    func fetchResources() {
+    private func createLayout() -> UICollectionViewLayout {
+      let layout = UICollectionViewCompositionalLayout { (sectionIndex, layoutEnvironment) -> NSCollectionLayoutSection? in
+        
+        guard let sectionType = SectionKind(rawValue: sectionIndex) else {
+          fatalError("could not get a section")
+        }
+        
+        let itemWidth: NSCollectionLayoutDimension = sectionIndex == 0 ? .estimated(100) : .fractionalWidth(1.0)
+        let itemSize = NSCollectionLayoutSize(widthDimension: itemWidth, heightDimension: .fractionalHeight(1.0))
+        let item = NSCollectionLayoutItem(layoutSize: itemSize)
+        if sectionType == .tag {
+          item.edgeSpacing = NSCollectionLayoutEdgeSpacing(leading: .fixed(8), top: .fixed(8), trailing: .fixed(8), bottom: .fixed(8))
+        } else {
+          let spacing: CGFloat = 5
+          item.contentInsets = NSDirectionalEdgeInsets(top: spacing, leading: spacing, bottom: spacing, trailing: spacing)
+        }
+        
+        let groupWidth: NSCollectionLayoutDimension = sectionIndex == 0 ? .estimated(100) : .fractionalWidth(1.0)
+        let groupHeight = sectionIndex == 0 ? NSCollectionLayoutDimension.absolute(44) : NSCollectionLayoutDimension.fractionalWidth(0.50)
+              
+        let groupSize = NSCollectionLayoutSize(widthDimension: groupWidth, heightDimension: groupHeight)
+        let group = NSCollectionLayoutGroup.horizontal(layoutSize: groupSize, subitems: [item])
+        
+        let section = NSCollectionLayoutSection(group: group)
+        section.contentInsets = NSDirectionalEdgeInsets(top: 10, leading: 5, bottom: 5, trailing: 5)
+        
+        section.orthogonalScrollingBehavior = sectionType.orthogonalBehaviour
+              
+        return section
+      }
+      return layout
+    }
+    
+      private func configureDataSource() {
+        dataSource = DataSource(collectionView: resourceCollectionView, cellProvider: { [weak self] (collectionView, indexPath, item) -> UICollectionViewCell? in
+            guard let self = self else { return nil}
+          if indexPath.section == 0 {
+            guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: TagCell.reuseIdentifier, for: indexPath) as? TagCell else {
+              fatalError("could not dequeue a TagCell")
+            }
+            cell.tagLabel.text = "\(item)".capitalized
+            return cell
+          } else {
+            guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: ResourceCell.reuseIdentifier, for: indexPath) as? ResourceCell else {
+              fatalError("could not dequeue a LabelCell")
+            }
+            cell.resourceImage.image = self.imagesArr[indexPath.row % self.imagesArr.count]
+            let resource = self.resources[indexPath.row]
+            cell.configureCell(resource)
+            
+            return cell
+          }
+        })
+        var snapshot = NSDiffableDataSourceSnapshot<SectionKind, AnyHashable>()
+        snapshot.appendSections([.tag, .article])
+        
+        let tags: [Tag] = Tag.allCases
+        
+        let articles: [SiteInfo] = fetchResources()
+        snapshot.appendItems(tags, toSection: .tag)
+        snapshot.appendItems(articles, toSection: .article)
+        dataSource.apply(snapshot, animatingDifferences: false)
+        
+        
+//        dataSource.supplementaryViewProvider = { (collectionView, kind, indexPath) in
+//          guard let headerView = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: HeaderView.reuseIdentifier, for: indexPath) as? HeaderView else {
+//            fatalError()
+//          }
+//          return headerView
+//        }
+      }
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        
+        if indexPath.section == 0 {
+            print("to finish later")
+        } else {
+            let resource = linkSources[indexPath.row]
+            fetchArticle(for: resource.link)
+        }
+        
+//        switch SectionKind(rawValue: indexPath.section) {
+//        case nil:
+//            return
+//
+//        case .some(.tag):
+//            // TODO : the stuff
+//            return
+//
+//        case .some(.article):
+//            let resource = linkSources[indexPath.row]
+//            fetchArticle(for: resource.link)
+//
+//        case .some(.recommendations):
+//            return
+//        }
+    }
+    
+    
+    func fetchResources() -> [SiteInfo]{
         resources = [SiteInfo]()
         do {
             resources = try Bundle.main.parseJSON(with: links)
+            return resources
         } catch {
             print("error: \(error)")
         }
+        return resources
     }
     
     func fetchArticle(for link: String) {
@@ -68,7 +197,8 @@ class ResourcesViewController: UIViewController {
                 searchText = nil
             }
         }
-        dataSource = resources.filter {
+        
+        linkSources = resources.filter {
             var isMatch = true
             if let text = searchText {
                 isMatch = isMatch && $0.name.lowercased().contains(text.lowercased())
@@ -105,54 +235,21 @@ extension ResourcesViewController: UISearchControllerDelegate {
     }
 }
 
-extension ResourcesViewController: UICollectionViewDelegateFlowLayout, UICollectionViewDataSource {
-    
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-            let maxSize: CGSize = UIScreen.main.bounds.size
-            let spacingBetweenItems: CGFloat = 10
-            let numberOfItems: CGFloat = 1
-            let itemHeight: CGFloat = maxSize.height * 0.20
-            let totalSpacing: CGFloat = (2 * spacingBetweenItems) + (numberOfItems - 1) * spacingBetweenItems
-            let itemWidth: CGFloat = (maxSize.width - totalSpacing) / numberOfItems
-            return CGSize(width: itemWidth, height: itemHeight)
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {
-        return CGSize(width: collectionView.bounds.width, height: collectionView.bounds.height * 0.10)
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return dataSource.count
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "resourceCell", for: indexPath) as? ResourceCell else {
-            fatalError("could not dequeue as ResourceCell")
-        }
-        let resource = dataSource[indexPath.row]
-        if let image = imagesArr.randomElement() {
-            cell.resourceImage.image = image
-        }
-        cell.configureCell(resource)
-        
-        return cell
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        let resource = dataSource[indexPath.row]
-        fetchArticle(for: resource.link)
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
-        guard let headerView = collectionView.dequeueReusableSupplementaryView(ofKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: "resourceHeader", for: indexPath) as? HeaderView else {
-            fatalError("could not dequeue a HeaderView")
-        }
-        headerView.configure()
-        headerView.delegate = self
-        return headerView
-    }
+extension ResourcesViewController: UICollectionViewDelegate {
     
 }
+
+//
+//    func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
+//        guard let headerView = collectionView.dequeueReusableSupplementaryView(ofKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: "resourceHeader", for: indexPath) as? HeaderView else {
+//            fatalError("could not dequeue a HeaderView")
+//        }
+//        headerView.configure()
+//        headerView.delegate = self
+//        return headerView
+//    }
+//
+//}
 
 extension ResourcesViewController: HeaderViewDelegate {
     

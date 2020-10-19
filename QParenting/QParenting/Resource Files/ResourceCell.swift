@@ -14,6 +14,8 @@ class ResourceCell: UICollectionViewCell {
     @IBOutlet var resourceLink: UILabel!
     @IBOutlet var tags: UILabel!
     
+    static let reuseIdentifier = "resourceCell"
+    
     func configureCell(_ resource: SiteInfo) {
         resourceLink.text = resource.name.capitalized
         //make network call
