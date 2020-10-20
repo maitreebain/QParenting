@@ -25,6 +25,7 @@
 		8085C1712500076800A41039 /* ForumViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8085C1702500076800A41039 /* ForumViewController.swift */; };
 		8087F856251D05E50008AE07 /* HeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8087F855251D05E50008AE07 /* HeaderView.swift */; };
 		8090E593251E422C007CFCC9 /* DataPersistence in Frameworks */ = {isa = PBXBuildFile; productRef = 8090E592251E422C007CFCC9 /* DataPersistence */; };
+		80DFBB32253F607600023BB2 /* UIAddOns.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80DFBB31253F607600023BB2 /* UIAddOns.swift */; };
 		80F070EC2507CAE300847FC2 /* UserModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80F070EB2507CAE300847FC2 /* UserModel.swift */; };
 		80F070EE2507CEE800847FC2 /* PostModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80F070ED2507CEE800847FC2 /* PostModel.swift */; };
 		80F070F02507CEEE00847FC2 /* CommentModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80F070EF2507CEEE00847FC2 /* CommentModel.swift */; };
@@ -65,6 +66,7 @@
 		8085C1672500044300A41039 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		8085C1702500076800A41039 /* ForumViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForumViewController.swift; sourceTree = "<group>"; };
 		8087F855251D05E50008AE07 /* HeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeaderView.swift; sourceTree = "<group>"; };
+		80DFBB31253F607600023BB2 /* UIAddOns.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIAddOns.swift; sourceTree = "<group>"; };
 		80F070EB2507CAE300847FC2 /* UserModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserModel.swift; sourceTree = "<group>"; };
 		80F070ED2507CEE800847FC2 /* PostModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostModel.swift; sourceTree = "<group>"; };
 		80F070EF2507CEEE00847FC2 /* CommentModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentModel.swift; sourceTree = "<group>"; };
@@ -120,6 +122,7 @@
 				80F070EF2507CEEE00847FC2 /* CommentModel.swift */,
 				80F070F12507D1E000847FC2 /* ForumCell.swift */,
 				8039033025000DE9006EA799 /* Navigation.swift */,
+				80DFBB31253F607600023BB2 /* UIAddOns.swift */,
 				80FB49D52519A10300FA92D4 /* Resource Files */,
 				803903322500138F006EA799 /* LoginViewController.swift */,
 				8085C1702500076800A41039 /* ForumViewController.swift */,
@@ -268,6 +271,7 @@
 			files = (
 				8085C1712500076800A41039 /* ForumViewController.swift in Sources */,
 				80F070EE2507CEE800847FC2 /* PostModel.swift in Sources */,
+				80DFBB32253F607600023BB2 /* UIAddOns.swift in Sources */,
 				80345469251534530019635F /* CreatePostViewController.swift in Sources */,
 				80494A4625053AAD0087FBAF /* ResourcesModel.swift in Sources */,
 				80F070F22507D1E000847FC2 /* ForumCell.swift in Sources */,

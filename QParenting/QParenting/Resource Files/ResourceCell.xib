@@ -17,17 +17,17 @@
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="91u-aK-eFG">
-                        <rect key="frame" x="8" y="8" width="156" height="140"/>
+                        <rect key="frame" x="8" y="16" width="156" height="124"/>
                     </imageView>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Tags" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="XbZ-NW-KZs">
-                        <rect key="frame" x="172" y="128" width="335" height="20"/>
+                        <rect key="frame" x="172" y="120" width="335" height="20"/>
                         <fontDescription key="fontDescription" name="Charter-Roman" family="Charter" pointSize="16"/>
                         <nil key="textColor"/>
                         <nil key="highlightedColor"/>
                     </label>
                     <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Title here" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="UVE-9w-FCX">
-                        <rect key="frame" x="172" y="16" width="347" height="22"/>
-                        <fontDescription key="fontDescription" name="Georgia" family="Georgia" pointSize="19"/>
+                        <rect key="frame" x="172" y="16" width="347" height="20.5"/>
+                        <fontDescription key="fontDescription" name="Georgia" family="Georgia" pointSize="18"/>
                         <nil key="textColor"/>
                         <nil key="highlightedColor"/>
                     </label>
@@ -51,9 +51,9 @@
                     <constraint firstItem="XbZ-NW-KZs" firstAttribute="leading" secondItem="91u-aK-eFG" secondAttribute="trailing" constant="8" id="BcF-eJ-rwT"/>
                     <constraint firstItem="3MO-cd-xAF" firstAttribute="centerY" secondItem="Z4u-yg-caL" secondAttribute="centerY" id="Cmo-oM-ryW"/>
                     <constraint firstItem="91u-aK-eFG" firstAttribute="leading" secondItem="Z4u-yg-caL" secondAttribute="leading" constant="8" id="R8g-Dd-wxm"/>
-                    <constraint firstAttribute="bottom" secondItem="XbZ-NW-KZs" secondAttribute="bottom" constant="8" id="ZfH-Tl-SLE"/>
-                    <constraint firstItem="91u-aK-eFG" firstAttribute="top" secondItem="Z4u-yg-caL" secondAttribute="top" constant="8" id="eLg-Gd-MVQ"/>
-                    <constraint firstAttribute="bottom" secondItem="91u-aK-eFG" secondAttribute="bottom" constant="8" id="zKi-na-BgA"/>
+                    <constraint firstItem="91u-aK-eFG" firstAttribute="top" secondItem="Z4u-yg-caL" secondAttribute="top" constant="16" id="eLg-Gd-MVQ"/>
+                    <constraint firstItem="XbZ-NW-KZs" firstAttribute="bottom" secondItem="91u-aK-eFG" secondAttribute="bottom" id="fT0-lo-y4k"/>
+                    <constraint firstAttribute="bottom" secondItem="91u-aK-eFG" secondAttribute="bottom" constant="16" id="zKi-na-BgA"/>
                     <constraint firstAttribute="trailing" secondItem="XbZ-NW-KZs" secondAttribute="trailing" constant="20" id="ziK-xW-Glx"/>
                 </constraints>
             </collectionViewCellContentView>

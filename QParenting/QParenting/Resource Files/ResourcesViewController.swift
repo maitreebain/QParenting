@@ -9,24 +9,32 @@
 import UIKit
 import SafariServices
 
+enum Tag: String, CaseIterable {
+    case general = "general"
+    case gay = "gay"
+    case lesbian = "lesbian"
+    case bisexual = "bisexual"
+    case transgender = "transgender"
+}
+
 enum SectionKind: Int, CaseIterable {
-  case tag, article
-  
-  var orthogonalBehaviour: UICollectionLayoutSectionOrthogonalScrollingBehavior {
-    switch self {
-    case .tag:
-      return .continuous
-    case .article:
-      return .none
-//    case .recommendations:
-//        return .none
+    case tag, article
+    
+    var orthogonalBehaviour: UICollectionLayoutSectionOrthogonalScrollingBehavior {
+        switch self {
+        case .tag:
+            return .continuous
+        case .article:
+            return .none
+            //    case .recommendations:
+            //        return .none
+        }
     }
-  }
     
 }
 
 class ResourcesViewController: UIViewController {
-
+    
     private var resourceCollectionView: UICollectionView!
     
     private var searchController: UISearchController!
@@ -54,13 +62,13 @@ class ResourcesViewController: UIViewController {
     }
     
     private func configureCollectionView() {
-      resourceCollectionView = UICollectionView(frame: view.bounds, collectionViewLayout: createLayout())
-      resourceCollectionView.register(TagCell.self, forCellWithReuseIdentifier: TagCell.reuseIdentifier)
+        resourceCollectionView = UICollectionView(frame: view.bounds, collectionViewLayout: createLayout())
+        resourceCollectionView.register(TagCell.self, forCellWithReuseIdentifier: TagCell.reuseIdentifier)
         resourceCollectionView.register(UINib(nibName: "ResourceCell", bundle: nil), forCellWithReuseIdentifier: ResourceCell.reuseIdentifier)
-      resourceCollectionView.backgroundColor = .systemBackground
-      resourceCollectionView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
-      resourceCollectionView.delegate = self
-      view.addSubview(resourceCollectionView)
+        resourceCollectionView.backgroundColor = .systemBackground
+        resourceCollectionView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+        resourceCollectionView.delegate = self
+        view.addSubview(resourceCollectionView)
     }
     
     private func initSearchController() {
@@ -74,57 +82,63 @@ class ResourcesViewController: UIViewController {
     }
     
     private func createLayout() -> UICollectionViewLayout {
-      let layout = UICollectionViewCompositionalLayout { (sectionIndex, layoutEnvironment) -> NSCollectionLayoutSection? in
-        
-        guard let sectionType = SectionKind(rawValue: sectionIndex) else {
-          fatalError("could not get a section")
+        let layout = UICollectionViewCompositionalLayout { (sectionIndex, layoutEnvironment) -> NSCollectionLayoutSection? in
+            
+            guard let sectionType = SectionKind(rawValue: sectionIndex) else {
+                fatalError("could not get a section")
+            }
+            
+            let itemWidth: NSCollectionLayoutDimension = sectionIndex == 0 ? .estimated(80) : .fractionalWidth(1.0)
+            let itemSize = NSCollectionLayoutSize(widthDimension: itemWidth, heightDimension: .fractionalHeight(1.0))
+            let item = NSCollectionLayoutItem(layoutSize: itemSize)
+            if sectionType == .tag {
+                item.edgeSpacing = NSCollectionLayoutEdgeSpacing(leading: .fixed(8), top: .fixed(12), trailing: .fixed(8), bottom: .fixed(8))
+            } else {
+                let spacing: CGFloat = 10
+                item.contentInsets = NSDirectionalEdgeInsets(top: spacing, leading: spacing, bottom: spacing, trailing: spacing)
+            }
+            
+            let groupWidth: NSCollectionLayoutDimension = sectionIndex == 0 ? .estimated(100) : .fractionalWidth(1.0)
+            let groupHeight = sectionIndex == 0 ? NSCollectionLayoutDimension.absolute(44) : NSCollectionLayoutDimension.fractionalWidth(0.50)
+            
+            let groupSize = NSCollectionLayoutSize(widthDimension: groupWidth, heightDimension: groupHeight)
+            let group = NSCollectionLayoutGroup.horizontal(layoutSize: groupSize, subitems: [item])
+            
+            let section = NSCollectionLayoutSection(group: group)
+            section.contentInsets = NSDirectionalEdgeInsets(top: 10, leading: 5, bottom: 5, trailing: 5)
+            
+            section.orthogonalScrollingBehavior = sectionType.orthogonalBehaviour
+            
+            return section
         }
-        
-        let itemWidth: NSCollectionLayoutDimension = sectionIndex == 0 ? .estimated(100) : .fractionalWidth(1.0)
-        let itemSize = NSCollectionLayoutSize(widthDimension: itemWidth, heightDimension: .fractionalHeight(1.0))
-        let item = NSCollectionLayoutItem(layoutSize: itemSize)
-        if sectionType == .tag {
-          item.edgeSpacing = NSCollectionLayoutEdgeSpacing(leading: .fixed(8), top: .fixed(8), trailing: .fixed(8), bottom: .fixed(8))
-        } else {
-          let spacing: CGFloat = 5
-          item.contentInsets = NSDirectionalEdgeInsets(top: spacing, leading: spacing, bottom: spacing, trailing: spacing)
-        }
-        
-        let groupWidth: NSCollectionLayoutDimension = sectionIndex == 0 ? .estimated(100) : .fractionalWidth(1.0)
-        let groupHeight = sectionIndex == 0 ? NSCollectionLayoutDimension.absolute(44) : NSCollectionLayoutDimension.fractionalWidth(0.50)
-              
-        let groupSize = NSCollectionLayoutSize(widthDimension: groupWidth, heightDimension: groupHeight)
-        let group = NSCollectionLayoutGroup.horizontal(layoutSize: groupSize, subitems: [item])
-        
-        let section = NSCollectionLayoutSection(group: group)
-        section.contentInsets = NSDirectionalEdgeInsets(top: 10, leading: 5, bottom: 5, trailing: 5)
-        
-        section.orthogonalScrollingBehavior = sectionType.orthogonalBehaviour
-              
-        return section
-      }
-      return layout
+        return layout
     }
     
-      private func configureDataSource() {
+    func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
+        if indexPath.section == 1 {
+            cell.colorShadow(for: #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1))
+        }
+    }
+    
+    private func configureDataSource() {
         dataSource = DataSource(collectionView: resourceCollectionView, cellProvider: { [weak self] (collectionView, indexPath, item) -> UICollectionViewCell? in
             guard let self = self else { return nil}
-          if indexPath.section == 0 {
-            guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: TagCell.reuseIdentifier, for: indexPath) as? TagCell else {
-              fatalError("could not dequeue a TagCell")
+            if indexPath.section == 0 {
+                guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: TagCell.reuseIdentifier, for: indexPath) as? TagCell else {
+                    fatalError("could not dequeue a TagCell")
+                }
+                cell.tagLabel.text = "\(item)".capitalized
+                return cell
+            } else {
+                guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: ResourceCell.reuseIdentifier, for: indexPath) as? ResourceCell else {
+                    fatalError("could not dequeue a LabelCell")
+                }
+                cell.resourceImage.image = self.imagesArr[indexPath.row % self.imagesArr.count]
+                let resource = self.resources[indexPath.row]
+                cell.configureCell(resource)
+                
+                return cell
             }
-            cell.tagLabel.text = "\(item)".capitalized
-            return cell
-          } else {
-            guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: ResourceCell.reuseIdentifier, for: indexPath) as? ResourceCell else {
-              fatalError("could not dequeue a LabelCell")
-            }
-            cell.resourceImage.image = self.imagesArr[indexPath.row % self.imagesArr.count]
-            let resource = self.resources[indexPath.row]
-            cell.configureCell(resource)
-            
-            return cell
-          }
         })
         var snapshot = NSDiffableDataSourceSnapshot<SectionKind, AnyHashable>()
         snapshot.appendSections([.tag, .article])
@@ -137,38 +151,43 @@ class ResourcesViewController: UIViewController {
         dataSource.apply(snapshot, animatingDifferences: false)
         
         
-//        dataSource.supplementaryViewProvider = { (collectionView, kind, indexPath) in
-//          guard let headerView = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: HeaderView.reuseIdentifier, for: indexPath) as? HeaderView else {
-//            fatalError()
-//          }
-//          return headerView
-//        }
-      }
+        //        dataSource.supplementaryViewProvider = { (collectionView, kind, indexPath) in
+        //          guard let headerView = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: HeaderView.reuseIdentifier, for: indexPath) as? HeaderView else {
+        //            fatalError()
+        //          }
+        //          return headerView
+        //        }
+    }
+
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         
         if indexPath.section == 0 {
-            print("to finish later")
+            let tags = Tag.allCases
+            
+            print(search(searchText: nil, searchTag: tags[indexPath.row].rawValue))
         } else {
             let resource = linkSources[indexPath.row]
             fetchArticle(for: resource.link)
         }
         
-//        switch SectionKind(rawValue: indexPath.section) {
-//        case nil:
-//            return
-//
-//        case .some(.tag):
-//            // TODO : the stuff
-//            return
-//
-//        case .some(.article):
-//            let resource = linkSources[indexPath.row]
-//            fetchArticle(for: resource.link)
-//
-//        case .some(.recommendations):
-//            return
-//        }
+        
+        
+        //        switch SectionKind(rawValue: indexPath.section) {
+        //        case nil:
+        //            return
+        //
+        //        case .some(.tag):
+        //            // TODO : the stuff
+        //            return
+        //
+        //        case .some(.article):
+        //            let resource = linkSources[indexPath.row]
+        //            fetchArticle(for: resource.link)
+        //
+        //        case .some(.recommendations):
+        //            return
+        //        }
     }
     
     
@@ -195,6 +214,7 @@ class ResourcesViewController: UIViewController {
         if let text = text {
             if text.isEmpty {
                 searchText = nil
+                
             }
         }
         
@@ -204,7 +224,7 @@ class ResourcesViewController: UIViewController {
                 isMatch = isMatch && $0.name.lowercased().contains(text.lowercased())
             }
             if let tag = tag {
-               isMatch = isMatch && $0.tags.contains(tag)
+                isMatch = isMatch && $0.tags.contains(tag)
             }
             return isMatch
         }
@@ -251,11 +271,11 @@ extension ResourcesViewController: UICollectionViewDelegate {
 //
 //}
 
-extension ResourcesViewController: HeaderViewDelegate {
-    
-    func didSelectTag(_ headerView: HeaderView, _ tag: Tag) {
-        
-    }
-    
-    
-}
+//extension ResourcesViewController: HeaderViewDelegate {
+//    
+//    func didSelectTag(_ headerView: HeaderView, _ tag: Tag) {
+//        
+//    }
+//    
+//    
+//}
