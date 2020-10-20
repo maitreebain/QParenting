@@ -45,12 +45,12 @@ class ResourcesViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        resources = fetchResources()
+        linkSources = resources
         randomImages()
         configureCollectionView()
         configureDataSource()
         initSearchController()
-        resources = fetchResources()
-        linkSources = resources
     }
     
     private func configureCollectionView() {
@@ -131,9 +131,8 @@ class ResourcesViewController: UIViewController {
         
         let tags: [Tag] = Tag.allCases
         
-        let articles: [SiteInfo] = fetchResources()
         snapshot.appendItems(tags, toSection: .tag)
-        snapshot.appendItems(articles, toSection: .article)
+        snapshot.appendItems(resources, toSection: .article)
         dataSource.apply(snapshot, animatingDifferences: false)
         
         
@@ -208,6 +207,12 @@ class ResourcesViewController: UIViewController {
             }
             return isMatch
         }
+
+        var snapshot = NSDiffableDataSourceSnapshot<SectionKind, AnyHashable>()
+        snapshot.appendSections([.tag, .article])
+        snapshot.appendItems(Tag.allCases, toSection: .tag)
+        snapshot.appendItems(linkSources, toSection: .article)
+        dataSource.apply(snapshot, animatingDifferences: false)
         
         resourceCollectionView.reloadData()
     }
