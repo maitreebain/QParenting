@@ -15,7 +15,7 @@ class MainTabController: UITabBarController {
         guard let vc = storyboard.instantiateViewController(identifier: "ResourcesViewController") as? ResourcesViewController else {
             return ResourcesViewController()
         }
-        vc.tabBarItem = UITabBarItem(title: "Resources", image: UIImage(systemName: "circle"), tag: 0)
+        vc.tabBarItem = UITabBarItem(title: "Resources", image: UIImage(systemName: "folder.fill"), tag: 0)
         vc.navigationItem.backBarButtonItem?.tintColor = .label
         return vc
     }()
@@ -33,6 +33,7 @@ class MainTabController: UITabBarController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        tabBar.tintColor = .label
         viewControllers = [UINavigationController(rootViewController: resourcesViewController)]
         //UINavigationController(rootViewController: forumViewController)
         

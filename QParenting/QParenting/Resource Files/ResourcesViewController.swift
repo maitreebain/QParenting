@@ -171,23 +171,6 @@ class ResourcesViewController: UIViewController {
             fetchArticle(for: resource.link)
         }
         
-        
-        
-        //        switch SectionKind(rawValue: indexPath.section) {
-        //        case nil:
-        //            return
-        //
-        //        case .some(.tag):
-        //            // TODO : the stuff
-        //            return
-        //
-        //        case .some(.article):
-        //            let resource = linkSources[indexPath.row]
-        //            fetchArticle(for: resource.link)
-        //
-        //        case .some(.recommendations):
-        //            return
-        //        }
     }
     
     
@@ -280,13 +263,4 @@ extension ResourcesViewController: UICollectionViewDelegate {
 //        return headerView
 //    }
 //
-//}
-
-//extension ResourcesViewController: HeaderViewDelegate {
-//    
-//    func didSelectTag(_ headerView: HeaderView, _ tag: Tag) {
-//        
-//    }
-//    
-//    
 //}
