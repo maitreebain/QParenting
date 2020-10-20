@@ -10,11 +10,11 @@ import UIKit
 import SafariServices
 
 enum Tag: String, CaseIterable {
-    case general = "general"
-    case gay = "gay"
-    case lesbian = "lesbian"
-    case bisexual = "bisexual"
-    case transgender = "transgender"
+    case general = "General"
+    case gay = "Gay"
+    case lesbian = "Lesbian"
+    case bisexual = "Bisexual"
+    case transgender = "Transgender"
 }
 
 enum SectionKind: Int, CaseIterable {
@@ -54,11 +54,11 @@ class ResourcesViewController: UIViewController {
         super.viewDidLoad()
         
         randomImages()
+        resources = fetchResources()
+        linkSources = resources
         configureCollectionView()
         configureDataSource()
         initSearchController()
-        resources = fetchResources()
-        linkSources = resources
     }
     
     private func configureCollectionView() {
@@ -225,11 +225,17 @@ class ResourcesViewController: UIViewController {
             }
             if let tag = tag {
                 isMatch = isMatch && $0.tags.contains(tag)
+                //search is checking all characters of word and loading articles based off that
             }
             return isMatch
         }
+        var snapshot = NSDiffableDataSourceSnapshot<SectionKind, AnyHashable>()
+        snapshot.appendSections([.tag, .article])
+        let tags: [Tag] = Tag.allCases
         
-        resourceCollectionView.reloadData()
+        snapshot.appendItems(tags, toSection: .tag)
+        snapshot.appendItems(linkSources, toSection: .article)
+        dataSource.apply(snapshot, animatingDifferences: false)
     }
     
     func randomImages() {
@@ -250,6 +256,11 @@ extension ResourcesViewController: UISearchResultsUpdating, UISearchBarDelegate 
 }
 
 extension ResourcesViewController: UISearchControllerDelegate {
+    func searchBarShouldBeginEditing(_ searchBar: UISearchBar) -> Bool {
+        linkSources = resources
+        return true
+    }
+    
     func willDismissSearchController(_ searchController: UISearchController) {
         search(searchText: nil, searchTag: nil)
     }
