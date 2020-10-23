@@ -50,15 +50,12 @@ class ResourcesViewController: UIViewController, UICollectionViewDelegate {
     
     var resources = [SiteInfo]()
     
-    var linkSources = [SiteInfo]()
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         
-//        dataPersistence.removeAll()
+        //        dataPersistence.removeAll()
         randomImages()
         resources = fetchResources()
-        linkSources = resources
         configureCollectionView()
         configureDataSource()
         initSearchController()
@@ -125,21 +122,20 @@ class ResourcesViewController: UIViewController, UICollectionViewDelegate {
     }
     
     private func configureDataSource() {
-        dataSource = DataSource(collectionView: resourceCollectionView, cellProvider: { [weak self] (collectionView, indexPath, item) -> UICollectionViewCell? in
+        dataSource = DataSource(collectionView: resourceCollectionView, cellProvider: { [weak self] (collectionView, indexPath, article) -> UICollectionViewCell? in
             guard let self = self else { return nil}
             if indexPath.section == 0 {
                 guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: TagCell.reuseIdentifier, for: indexPath) as? TagCell else {
                     fatalError("could not dequeue a TagCell")
                 }
-                cell.tagLabel.text = "\(item)".capitalized
+                cell.tagLabel.text = "\(article)".capitalized
                 return cell
             } else {
                 guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: ResourceCell.reuseIdentifier, for: indexPath) as? ResourceCell else {
                     fatalError("could not dequeue a LabelCell")
                 }
                 cell.resourceImage.image = self.imagesArr[indexPath.row % self.imagesArr.count]
-                let resource = self.resources[indexPath.row]
-                cell.configureCell(resource)
+                cell.configureCell(article as! SiteInfo)
                 cell.delegate = self
                 
                 return cell
@@ -163,7 +159,6 @@ class ResourcesViewController: UIViewController, UICollectionViewDelegate {
         //          return headerView
         //        }
     }
-
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         
@@ -172,7 +167,7 @@ class ResourcesViewController: UIViewController, UICollectionViewDelegate {
             
             print(search(searchText: nil, searchTag: tags[indexPath.row].rawValue))
         } else {
-            let resource = linkSources[indexPath.row]
+            let resource = resources[indexPath.row]
             fetchArticle(for: resource.link)
         }
         
@@ -198,31 +193,20 @@ class ResourcesViewController: UIViewController, UICollectionViewDelegate {
     }
     
     func search(searchText text: String?,searchTag tag: String?) {
-        var searchText = text
-        if let text = text {
-            if text.isEmpty {
-                searchText = nil
-                
-            }
+        var articles = [SiteInfo]()
+        
+        if let searchText = text {
+            articles = resources.filter { $0.name.lowercased().contains(searchText)}
+        } else {
+            guard let tag = tag else { return }
+            articles = Array(Set(resources.filter { $0.tags.contains(tag) }))
         }
         
-        linkSources = resources.filter {
-            var isMatch = true
-            if let text = searchText {
-                isMatch = isMatch && $0.name.lowercased().contains(text.lowercased())
-            }
-            if let tag = tag {
-                isMatch = isMatch && $0.tags.contains(tag)
-                //search is checking all characters of word and loading articles based off that
-            }
-            return isMatch
-        }
         var snapshot = NSDiffableDataSourceSnapshot<SectionKind, AnyHashable>()
         snapshot.appendSections([.tag, .article])
         let tags: [Tag] = Tag.allCases
-        
         snapshot.appendItems(tags, toSection: .tag)
-        snapshot.appendItems(linkSources, toSection: .article)
+        snapshot.appendItems(articles, toSection: .article)
         dataSource.apply(snapshot, animatingDifferences: false)
     }
     
@@ -244,13 +228,17 @@ extension ResourcesViewController: UISearchResultsUpdating, UISearchBarDelegate 
 }
 
 extension ResourcesViewController: UISearchControllerDelegate {
+    //add snapshot here to update data
     func searchBarShouldBeginEditing(_ searchBar: UISearchBar) -> Bool {
-        linkSources = resources
         return true
     }
     
     func willDismissSearchController(_ searchController: UISearchController) {
         search(searchText: nil, searchTag: nil)
+    }
+    
+    func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
+        resources = fetchResources()
     }
 }
 
@@ -272,7 +260,7 @@ extension ResourcesViewController: SavedArticleDelegate {
         } else {
             print("new")
             do {
-               try dataPersistence.createItem(article)
+                try dataPersistence.createItem(article)
             } catch {
                 showAlert(title: "Error saving", message: "Could not save article")
             }
