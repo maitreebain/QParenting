@@ -17,43 +17,45 @@
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="91u-aK-eFG">
-                        <rect key="frame" x="8" y="8" width="156" height="140"/>
+                        <rect key="frame" x="8" y="16" width="211" height="124"/>
                     </imageView>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Tags" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="XbZ-NW-KZs">
-                        <rect key="frame" x="172" y="128" width="335" height="20"/>
+                        <rect key="frame" x="227" y="44.5" width="280" height="20"/>
                         <fontDescription key="fontDescription" name="Charter-Roman" family="Charter" pointSize="16"/>
-                        <nil key="textColor"/>
                         <nil key="highlightedColor"/>
                     </label>
                     <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Title here" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="UVE-9w-FCX">
-                        <rect key="frame" x="172" y="16" width="347" height="22"/>
-                        <fontDescription key="fontDescription" name="Georgia" family="Georgia" pointSize="19"/>
-                        <nil key="textColor"/>
+                        <rect key="frame" x="227" y="16" width="292" height="20.5"/>
+                        <fontDescription key="fontDescription" name="Georgia" family="Georgia" pointSize="18"/>
                         <nil key="highlightedColor"/>
                     </label>
                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="3MO-cd-xAF">
-                        <rect key="frame" x="463" y="56" width="44" height="44"/>
+                        <rect key="frame" x="463" y="96" width="44" height="44"/>
+                        <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
-                            <constraint firstAttribute="height" constant="44" id="cmv-Cp-fUO"/>
-                            <constraint firstAttribute="width" constant="44" id="ntk-9J-6aF"/>
+                            <constraint firstAttribute="width" constant="44" id="ROB-BT-zaV"/>
+                            <constraint firstAttribute="height" constant="44" id="W3u-ms-0B4"/>
                         </constraints>
-                        <color key="tintColor" systemColor="systemYellowColor" red="1" green="0.80000000000000004" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <state key="normal" image="star" catalog="system"/>
+                        <connections>
+                            <action selector="didSaveArticle:" destination="ifc-AU-AGN" eventType="touchUpInside" id="ONS-eN-r5H"/>
+                        </connections>
                     </button>
                 </subviews>
-                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                <color key="backgroundColor" systemColor="tertiarySystemGroupedBackgroundColor" red="0.94901960780000005" green="0.94901960780000005" blue="0.96862745100000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                 <constraints>
-                    <constraint firstItem="91u-aK-eFG" firstAttribute="width" secondItem="Z4u-yg-caL" secondAttribute="height" multiplier="1:1" id="1pk-9s-EOV"/>
                     <constraint firstItem="UVE-9w-FCX" firstAttribute="leading" secondItem="91u-aK-eFG" secondAttribute="trailing" constant="8" id="3M6-u2-ysJ"/>
                     <constraint firstAttribute="trailing" secondItem="UVE-9w-FCX" secondAttribute="trailing" constant="8" id="4ec-yQ-FHe"/>
-                    <constraint firstAttribute="trailing" secondItem="3MO-cd-xAF" secondAttribute="trailing" constant="20" id="AAk-Vn-8Zl"/>
+                    <constraint firstItem="XbZ-NW-KZs" firstAttribute="top" secondItem="UVE-9w-FCX" secondAttribute="bottom" constant="8" id="6t5-zI-6hy"/>
                     <constraint firstItem="UVE-9w-FCX" firstAttribute="top" secondItem="Z4u-yg-caL" secondAttribute="top" constant="16" id="BFf-bD-vhL"/>
-                    <constraint firstItem="XbZ-NW-KZs" firstAttribute="leading" secondItem="91u-aK-eFG" secondAttribute="trailing" constant="8" id="BcF-eJ-rwT"/>
-                    <constraint firstItem="3MO-cd-xAF" firstAttribute="centerY" secondItem="Z4u-yg-caL" secondAttribute="centerY" id="Cmo-oM-ryW"/>
+                    <constraint firstItem="91u-aK-eFG" firstAttribute="width" secondItem="Z4u-yg-caL" secondAttribute="width" multiplier="0.4" id="QpB-If-gS5"/>
                     <constraint firstItem="91u-aK-eFG" firstAttribute="leading" secondItem="Z4u-yg-caL" secondAttribute="leading" constant="8" id="R8g-Dd-wxm"/>
-                    <constraint firstAttribute="bottom" secondItem="XbZ-NW-KZs" secondAttribute="bottom" constant="8" id="ZfH-Tl-SLE"/>
-                    <constraint firstItem="91u-aK-eFG" firstAttribute="top" secondItem="Z4u-yg-caL" secondAttribute="top" constant="8" id="eLg-Gd-MVQ"/>
-                    <constraint firstAttribute="bottom" secondItem="91u-aK-eFG" secondAttribute="bottom" constant="8" id="zKi-na-BgA"/>
+                    <constraint firstItem="XbZ-NW-KZs" firstAttribute="leading" secondItem="91u-aK-eFG" secondAttribute="trailing" constant="8" id="SLu-Al-Lyk"/>
+                    <constraint firstAttribute="trailing" secondItem="3MO-cd-xAF" secondAttribute="trailing" constant="20" id="ZAu-TI-SUQ"/>
+                    <constraint firstItem="91u-aK-eFG" firstAttribute="top" secondItem="Z4u-yg-caL" secondAttribute="top" constant="16" id="eLg-Gd-MVQ"/>
+                    <constraint firstAttribute="bottom" secondItem="3MO-cd-xAF" secondAttribute="bottom" constant="16" id="mD2-ux-Yg3"/>
+                    <constraint firstAttribute="bottom" secondItem="91u-aK-eFG" secondAttribute="bottom" constant="16" id="zKi-na-BgA"/>
                     <constraint firstAttribute="trailing" secondItem="XbZ-NW-KZs" secondAttribute="trailing" constant="20" id="ziK-xW-Glx"/>
                 </constraints>
             </collectionViewCellContentView>
@@ -61,6 +63,7 @@
             <connections>
                 <outlet property="resourceImage" destination="91u-aK-eFG" id="so6-08-Y15"/>
                 <outlet property="resourceLink" destination="UVE-9w-FCX" id="mq2-F0-Hsr"/>
+                <outlet property="saveButton" destination="3MO-cd-xAF" id="OE9-Pi-Q1u"/>
                 <outlet property="tags" destination="XbZ-NW-KZs" id="QAC-pB-qIJ"/>
             </connections>
             <point key="canvasLocation" x="322.46376811594206" y="125.22321428571428"/>

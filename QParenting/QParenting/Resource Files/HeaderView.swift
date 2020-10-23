@@ -12,14 +12,6 @@ protocol HeaderViewDelegate: AnyObject {
     func didSelectTag(_ headerView: HeaderView, _ tag: Tag)
 }
 
-enum Tag: String, CaseIterable {
-    case general = "general"
-    case gay = "gay"
-    case lesbian = "lesbian"
-    case bisexual = "bisexual"
-    case transgender = "transgender"
-}
-
 class HeaderView: UICollectionReusableView {
     
     @IBOutlet var stackView: UIStackView!
