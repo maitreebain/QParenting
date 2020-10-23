@@ -10,15 +10,26 @@ import UIKit
 
 class SavedArticlesController: UIViewController {
     
-    private var savedArticlesCollection: UICollectionView!
+    @IBOutlet var savedArticlesCollection: UICollectionView!
     
-    //use a different data source?
-
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
+//        savedArticlesCollection.delegate = self
+//        savedArticlesCollection.dataSource = self
     }
     
-    //use diffable data source
-
+    
 }
+
+//extension SavedArticlesController: UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
+//    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+//    
+//    }
+//    
+//    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+//    
+//    }
+//    
+//    
+//}

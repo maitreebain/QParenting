@@ -15,6 +15,7 @@
 		80494A4425053A280087FBAF /* ResourceCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80494A4325053A270087FBAF /* ResourceCell.swift */; };
 		80494A4625053AAD0087FBAF /* ResourcesModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80494A4525053AAD0087FBAF /* ResourcesModel.swift */; };
 		8057EEB2253F8E4B00CF1307 /* SavedArticlesController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8057EEB1253F8E4B00CF1307 /* SavedArticlesController.swift */; };
+		8064C67425434C7D00E91003 /* ShowAlertExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8064C67325434C7D00E91003 /* ShowAlertExtension.swift */; };
 		8069DD1A252F5BC500A1318B /* TagCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8069DD19252F5BC500A1318B /* TagCell.swift */; };
 		8085C14F2500044100A41039 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8085C14E2500044100A41039 /* AppDelegate.swift */; };
 		8085C1512500044100A41039 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8085C1502500044100A41039 /* SceneDelegate.swift */; };
@@ -54,6 +55,7 @@
 		80494A4325053A270087FBAF /* ResourceCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResourceCell.swift; sourceTree = "<group>"; };
 		80494A4525053AAD0087FBAF /* ResourcesModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResourcesModel.swift; sourceTree = "<group>"; };
 		8057EEB1253F8E4B00CF1307 /* SavedArticlesController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SavedArticlesController.swift; sourceTree = "<group>"; };
+		8064C67325434C7D00E91003 /* ShowAlertExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShowAlertExtension.swift; sourceTree = "<group>"; };
 		8069DD19252F5BC500A1318B /* TagCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TagCell.swift; sourceTree = "<group>"; };
 		8085C14B2500044100A41039 /* QParenting.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = QParenting.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		8085C14E2500044100A41039 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -96,6 +98,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		8064C67225434C6700E91003 /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				80DFBB31253F607600023BB2 /* UIAddOns.swift */,
+				8064C67325434C7D00E91003 /* ShowAlertExtension.swift */,
+			);
+			path = Extensions;
+			sourceTree = "<group>";
+		};
 		8085C1422500044100A41039 = {
 			isa = PBXGroup;
 			children = (
@@ -124,7 +135,7 @@
 				80F070EF2507CEEE00847FC2 /* CommentModel.swift */,
 				80F070F12507D1E000847FC2 /* ForumCell.swift */,
 				8039033025000DE9006EA799 /* Navigation.swift */,
-				80DFBB31253F607600023BB2 /* UIAddOns.swift */,
+				8064C67225434C6700E91003 /* Extensions */,
 				80FB49D52519A10300FA92D4 /* Resource Files */,
 				803903322500138F006EA799 /* LoginViewController.swift */,
 				8085C1702500076800A41039 /* ForumViewController.swift */,
@@ -281,6 +292,7 @@
 				80494A4425053A280087FBAF /* ResourceCell.swift in Sources */,
 				8085C1532500044100A41039 /* ResourcesViewController.swift in Sources */,
 				80F070F02507CEEE00847FC2 /* CommentModel.swift in Sources */,
+				8064C67425434C7D00E91003 /* ShowAlertExtension.swift in Sources */,
 				8039033125000DE9006EA799 /* Navigation.swift in Sources */,
 				8039032F25000CCB006EA799 /* MainTabController.swift in Sources */,
 				80F070F42507D42400847FC2 /* PostViewController.swift in Sources */,

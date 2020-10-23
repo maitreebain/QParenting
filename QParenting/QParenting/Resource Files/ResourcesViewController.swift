@@ -8,6 +8,7 @@
 
 import UIKit
 import SafariServices
+import DataPersistence
 
 enum Tag: String, CaseIterable {
     case general = "General"
@@ -41,6 +42,7 @@ class ResourcesViewController: UIViewController {
     
     typealias DataSource = UICollectionViewDiffableDataSource<SectionKind, AnyHashable>
     private var dataSource: DataSource!
+    private var dataPersistence = DataPersistence<SiteInfo>(filename: "savedArticles")
     
     var links = "Links"
     var imageNames = ["prideB", "prideC", "prideD", "prideE", "prideF"]
@@ -67,7 +69,6 @@ class ResourcesViewController: UIViewController {
         resourceCollectionView.register(UINib(nibName: "ResourceCell", bundle: nil), forCellWithReuseIdentifier: ResourceCell.reuseIdentifier)
         resourceCollectionView.backgroundColor = .systemBackground
         resourceCollectionView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
-        resourceCollectionView.delegate = self
         view.addSubview(resourceCollectionView)
     }
     
@@ -136,6 +137,7 @@ class ResourcesViewController: UIViewController {
                 cell.resourceImage.image = self.imagesArr[indexPath.row % self.imagesArr.count]
                 let resource = self.resources[indexPath.row]
                 cell.configureCell(resource)
+                cell.delegate = self
                 
                 return cell
             }
@@ -249,7 +251,15 @@ extension ResourcesViewController: UISearchControllerDelegate {
     }
 }
 
-extension ResourcesViewController: UICollectionViewDelegate {
+extension ResourcesViewController: SavedArticleDelegate {
+    
+    func didSaveArticle(_ cell: UICollectionViewCell, article: SiteInfo) {
+        do {
+           try dataPersistence.createItem(article)
+        } catch {
+            showAlert(title: "Error", message: "Could not save article")
+        }
+    }
     
 }
 
