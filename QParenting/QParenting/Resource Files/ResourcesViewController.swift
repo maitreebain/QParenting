@@ -34,7 +34,7 @@ enum SectionKind: Int, CaseIterable {
     
 }
 
-class ResourcesViewController: UIViewController {
+class ResourcesViewController: UIViewController, UICollectionViewDelegate {
     
     private var resourceCollectionView: UICollectionView!
     
@@ -70,6 +70,7 @@ class ResourcesViewController: UIViewController {
         resourceCollectionView.register(UINib(nibName: "ResourceCell", bundle: nil), forCellWithReuseIdentifier: ResourceCell.reuseIdentifier)
         resourceCollectionView.backgroundColor = .systemBackground
         resourceCollectionView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+        resourceCollectionView.delegate = self
         view.addSubview(resourceCollectionView)
     }
     
