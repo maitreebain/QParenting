@@ -42,7 +42,7 @@
                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="Tyj-eq-BIB">
                                 <rect key="frame" x="0.0" y="56" width="414" height="752"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
-                                <collectionViewFlowLayout key="collectionViewLayout" automaticEstimatedItemSize="YES" minimumLineSpacing="10" minimumInteritemSpacing="10" id="WxZ-Oa-Zbe">
+                                <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="WxZ-Oa-Zbe">
                                     <size key="itemSize" width="128" height="128"/>
                                     <size key="headerReferenceSize" width="0.0" height="0.0"/>
                                     <size key="footerReferenceSize" width="0.0" height="0.0"/>
@@ -53,10 +53,10 @@
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <constraints>
-                            <constraint firstItem="C9U-kK-d7f" firstAttribute="bottom" secondItem="Tyj-eq-BIB" secondAttribute="bottom" id="6ml-PF-41P"/>
-                            <constraint firstItem="C9U-kK-d7f" firstAttribute="trailing" secondItem="Tyj-eq-BIB" secondAttribute="trailing" id="CQW-wk-gT5"/>
-                            <constraint firstItem="Tyj-eq-BIB" firstAttribute="top" secondItem="C9U-kK-d7f" secondAttribute="top" id="WLd-7X-ajK"/>
-                            <constraint firstItem="Tyj-eq-BIB" firstAttribute="leading" secondItem="C9U-kK-d7f" secondAttribute="leading" id="uSM-kJ-Dbr"/>
+                            <constraint firstItem="Tyj-eq-BIB" firstAttribute="leading" secondItem="C9U-kK-d7f" secondAttribute="leading" id="Cst-FN-pXL"/>
+                            <constraint firstItem="Tyj-eq-BIB" firstAttribute="trailing" secondItem="C9U-kK-d7f" secondAttribute="trailing" id="DDV-ii-jNh"/>
+                            <constraint firstItem="Tyj-eq-BIB" firstAttribute="top" secondItem="C9U-kK-d7f" secondAttribute="top" id="LO7-Jc-Y2f"/>
+                            <constraint firstItem="Tyj-eq-BIB" firstAttribute="bottom" secondItem="C9U-kK-d7f" secondAttribute="bottom" id="wbW-oG-thF"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="C9U-kK-d7f"/>
                     </view>
