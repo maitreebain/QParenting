@@ -55,6 +55,7 @@ class ResourcesViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+//        dataPersistence.removeAll()
         randomImages()
         resources = fetchResources()
         linkSources = resources
@@ -254,10 +255,25 @@ extension ResourcesViewController: UISearchControllerDelegate {
 extension ResourcesViewController: SavedArticleDelegate {
     
     func didSaveArticle(_ cell: UICollectionViewCell, article: SiteInfo) {
-        do {
-           try dataPersistence.createItem(article)
-        } catch {
-            showAlert(title: "Error", message: "Could not save article")
+        
+        if dataPersistence.hasItemBeenSaved(article) {
+            print("del")
+            guard let index = resources.firstIndex(of: article) else {
+                print("could not find article to delete")
+                return
+            }
+            do {
+                try dataPersistence.deleteItem(at: index)
+            } catch {
+                showAlert(title: "Error deleting", message: "Could not unsave article from saved articles")
+            }
+        } else {
+            print("new")
+            do {
+               try dataPersistence.createItem(article)
+            } catch {
+                showAlert(title: "Error saving", message: "Could not save article")
+            }
         }
     }
     

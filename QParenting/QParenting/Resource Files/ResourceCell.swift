@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import DataPersistence
 
 protocol SavedArticleDelegate: AnyObject {
     func didSaveArticle(_ cell: UICollectionViewCell, article: SiteInfo)
@@ -20,6 +21,7 @@ class ResourceCell: UICollectionViewCell {
     @IBOutlet var saveButton: UIButton!
     
     static let reuseIdentifier = "resourceCell"
+    var dp = DataPersistence<SiteInfo>(filename: "savedArticles")
     
     var article: SiteInfo! //refactor to initialier
     weak var delegate: SavedArticleDelegate?
