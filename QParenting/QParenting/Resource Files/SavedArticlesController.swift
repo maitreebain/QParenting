@@ -11,22 +11,36 @@ import DataPersistence
 
 class SavedArticlesController: UIViewController {
     
+    private var searchController: UISearchController!
     @IBOutlet var savedArticlesCollection: UICollectionView!
     
     private var dataPer = DataPersistence<SiteInfo>(filename: "savedArticles")
-    var imageNames = ["prideB", "prideC", "prideD", "prideE", "prideF"]
-    var imagesArr = [UIImage]()
+    private var imageNames = ["prideB", "prideC", "prideD", "prideE", "prideF"]
+    private var imagesArr = [UIImage]()
+    private var data = [SiteInfo]()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        data = getData()
         randomImages()
+        initSearchController()
         savedArticlesCollection.delegate = self
         savedArticlesCollection.dataSource = self
         savedArticlesCollection.register(UINib(nibName: "ResourceCell", bundle: nil), forCellWithReuseIdentifier: ResourceCell.reuseIdentifier)
     }
     
-    func getData() -> [SiteInfo] {
+    private func initSearchController() {
+        searchController = UISearchController(searchResultsController: nil)
+        searchController.searchBar.placeholder = "Search article by name"
+        navigationItem.searchController = searchController
+        searchController.searchBar.tintColor = .label
+        searchController.searchResultsUpdater = self
+        searchController.searchBar.autocapitalizationType = .none
+        searchController.delegate = self
+    }
+    
+    private func getData() -> [SiteInfo] {
         do {
             return try dataPer.loadItems()
         } catch {
@@ -35,13 +49,30 @@ class SavedArticlesController: UIViewController {
         return []
     }
     
-    func randomImages() {
+    private func randomImages() {
         for name in imageNames {
             let img = UIImage(named: name)
             if let image = img {
                 imagesArr.append(image)
             }
         }
+    }
+    
+    private func fetchArticle(for link: String) {
+        
+        if let url = URL(string: link) {
+            UIApplication.shared.open(url)
+        }
+    }
+    
+    private func searchSavedArticles(_ text: String?) {
+        guard let text = text else {
+            showAlert(title: "Empty Field", message: "Please search by article titles")
+            return
+        }
+        
+        data = data.filter {$0.name.lowercased().contains(text.lowercased())}
+        
     }
     
 }
@@ -64,7 +95,7 @@ extension SavedArticlesController: UICollectionViewDataSource, UICollectionViewD
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return getData().count
+        return data.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
@@ -72,20 +103,40 @@ extension SavedArticlesController: UICollectionViewDataSource, UICollectionViewD
             fatalError("could not dequeue a LabelCell")
         }
         cell.resourceImage.image = self.imagesArr[indexPath.row % self.imagesArr.count]
-        let resource = getData()[indexPath.row]
+        let resource = data[indexPath.row]
         cell.configureCell(resource)
         cell.delegate = self
         
         return cell
     }
     
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        let article = data[indexPath.row]
+        fetchArticle(for: article.link)
+    }
     
+}
+
+extension SavedArticlesController: UISearchResultsUpdating, UISearchBarDelegate {
+    
+    func updateSearchResults(for searchController: UISearchController) {
+        searchSavedArticles(searchController.searchBar.text)
+    }
+}
+
+extension SavedArticlesController: UISearchControllerDelegate {
+    func searchBarShouldBeginEditing(_ searchBar: UISearchBar) -> Bool {
+        searchSavedArticles(searchBar.text)
+        return true
+    }
 }
 
 extension SavedArticlesController: SavedArticleDelegate {
     
     func didSaveArticle(_ cell: UICollectionViewCell, article: SiteInfo) {
+        
     }
     
     
 }
+

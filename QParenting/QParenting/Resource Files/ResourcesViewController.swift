@@ -78,6 +78,7 @@ class ResourcesViewController: UIViewController, UICollectionViewDelegate {
         searchController = UISearchController(searchResultsController: nil)
         searchController.searchBar.placeholder = "Search article by name"
         navigationItem.searchController = searchController
+        searchController.searchBar.tintColor = .label
         searchController.searchResultsUpdater = self
         searchController.searchBar.autocapitalizationType = .none
         searchController.obscuresBackgroundDuringPresentation = false
