@@ -135,6 +135,18 @@ extension SavedArticlesController: SavedArticleDelegate {
     
     func didSaveArticle(_ cell: UICollectionViewCell, article: SiteInfo) {
         
+            if dataPer.hasItemBeenSaved(article) {
+                print("del")
+                guard let index = data.firstIndex(of: article) else {
+                    print("could not find article to delete")
+                    return
+                }
+                do {
+                    try dataPer.deleteItem(at: index)
+                } catch {
+                    showAlert(title: "Error deleting", message: "Could not unsave article from saved articles")
+                }
+            }
     }
     
     
