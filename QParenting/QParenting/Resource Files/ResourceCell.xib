@@ -36,7 +36,7 @@
                             <constraint firstAttribute="width" constant="44" id="ROB-BT-zaV"/>
                             <constraint firstAttribute="height" constant="44" id="W3u-ms-0B4"/>
                         </constraints>
-                        <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <color key="tintColor" systemColor="labelColor" cocoaTouchSystemColor="darkTextColor"/>
                         <state key="normal" image="star" catalog="system">
                             <color key="titleColor" systemColor="labelColor" cocoaTouchSystemColor="darkTextColor"/>
                         </state>
