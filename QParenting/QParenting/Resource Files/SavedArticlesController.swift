@@ -9,6 +9,10 @@
 import UIKit
 import DataPersistence
 
+protocol UpdateDelegate: AnyObject {
+    func updateUI(_ viewController: SavedArticlesController)
+}
+
 class SavedArticlesController: UIViewController {
     
     private var searchController: UISearchController!
@@ -17,11 +21,30 @@ class SavedArticlesController: UIViewController {
     private var dataPer = DataPersistence<SiteInfo>(filename: "savedArticles")
     private var imageNames = ["prideB", "prideC", "prideD", "prideE", "prideF"]
     private var imagesArr = [UIImage]()
-    private var data = [SiteInfo]()
+    
+    private var data = [SiteInfo]() {
+        didSet {
+            DispatchQueue.main.async {
+                self.savedArticlesCollection.reloadData()
+                
+                if self.data.isEmpty {
+                    self.savedArticlesCollection.backgroundView = EmptyView(title: "No articles saved", message: "Take a look at resources to save an article")
+                } else {
+                    self.savedArticlesCollection.backgroundView = nil
+                }
+                
+            }
+        }
+        
+    }
+    
+    weak var delegate: UpdateDelegate?
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        
+        delegate?.updateUI(self)
         data = getData()
         randomImages()
         initSearchController()
@@ -66,13 +89,12 @@ class SavedArticlesController: UIViewController {
     }
     
     private func searchSavedArticles(_ text: String?) {
-        guard let text = text else {
-            showAlert(title: "Empty Field", message: "Please search by article titles")
-            return
+        if let text = text, !text.isEmpty {
+            data = data.filter {$0.name.lowercased().contains(text)}
         }
-        
-        data = data.filter {$0.name.lowercased().contains(text.lowercased())}
-        
+        else {
+            data = getData()
+        }
     }
     
 }
@@ -126,15 +148,32 @@ extension SavedArticlesController: UISearchResultsUpdating, UISearchBarDelegate 
 
 extension SavedArticlesController: UISearchControllerDelegate {
     func searchBarShouldBeginEditing(_ searchBar: UISearchBar) -> Bool {
-        searchSavedArticles(searchBar.text)
         return true
     }
+    
+    func willDismissSearchController(_ searchController: UISearchController) {
+        searchSavedArticles(searchController.searchBar.text)
+    }
+    
 }
 
 extension SavedArticlesController: SavedArticleDelegate {
     
     func didSaveArticle(_ cell: UICollectionViewCell, article: SiteInfo) {
         
+        if dataPer.hasItemBeenSaved(article) {
+            print("del")
+            guard let index = getData().firstIndex(of: article) else {
+                print("could not find article to delete")
+                return
+            }
+            do {
+                try dataPer.deleteItem(at: index)
+            } catch {
+                showAlert(title: "Error deleting", message: "Could not unsave article from saved articles")
+            }
+        }
+        self.delegate?.updateUI(self)
     }
     
     

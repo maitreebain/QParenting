@@ -11,6 +11,7 @@ import SafariServices
 import DataPersistence
 
 enum Tag: String, CaseIterable {
+    case all = "All"
     case general = "General"
     case gay = "Gay"
     case lesbian = "Lesbian"
@@ -26,10 +27,7 @@ enum SectionKind: Int, CaseIterable {
         case .tag:
             return .continuous
         case .article:
-            return .none
-            //    case .recommendations:
-            //        return .none
-        }
+            return .none        }
     }
     
 }
@@ -41,6 +39,7 @@ class ResourcesViewController: UIViewController, UICollectionViewDelegate {
     private var searchController: UISearchController!
     
     typealias DataSource = UICollectionViewDiffableDataSource<SectionKind, AnyHashable>
+    var snapshot = NSDiffableDataSourceSnapshot<SectionKind, AnyHashable>()
     private var dataSource: DataSource!
     private var dataPersistence = DataPersistence<SiteInfo>(filename: "savedArticles")
     
@@ -53,7 +52,6 @@ class ResourcesViewController: UIViewController, UICollectionViewDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        //        dataPersistence.removeAll()
         randomImages()
         resources = fetchResources()
         configureCollectionView()
@@ -80,6 +78,11 @@ class ResourcesViewController: UIViewController, UICollectionViewDelegate {
         searchController.searchBar.autocapitalizationType = .none
         searchController.obscuresBackgroundDuringPresentation = false
         searchController.delegate = self
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        guard let navController = segue.destination as? UINavigationController, let savedArticleVC = navController.viewControllers.first as? SavedArticlesController else { return }
+        savedArticleVC.delegate = self
     }
     
     private func createLayout() -> UICollectionViewLayout {
@@ -141,7 +144,7 @@ class ResourcesViewController: UIViewController, UICollectionViewDelegate {
                 return cell
             }
         })
-        var snapshot = NSDiffableDataSourceSnapshot<SectionKind, AnyHashable>()
+        snapshot.deleteAllItems()
         snapshot.appendSections([.tag, .article])
         
         let tags: [Tag] = Tag.allCases
@@ -164,8 +167,7 @@ class ResourcesViewController: UIViewController, UICollectionViewDelegate {
         
         if indexPath.section == 0 {
             let tags = Tag.allCases
-            
-            print(search(searchText: nil, searchTag: tags[indexPath.row].rawValue))
+            search(searchText: nil, searchTag: tags[indexPath.row].rawValue)
         } else {
             let resource = resources[indexPath.row]
             fetchArticle(for: resource.link)
@@ -195,14 +197,20 @@ class ResourcesViewController: UIViewController, UICollectionViewDelegate {
     func search(searchText text: String?,searchTag tag: String?) {
         var articles = [SiteInfo]()
         
+        
         if let searchText = text {
+            guard !searchText.isEmpty else { return }
             articles = resources.filter { $0.name.lowercased().contains(searchText)}
+        } else if let tag = tag {
+            if tag == "All" { articles = fetchResources() }
+            else {
+                articles = Array(Set(resources.filter { $0.tags.contains(tag) }))
+            }
         } else {
-            guard let tag = tag else { return }
-            articles = Array(Set(resources.filter { $0.tags.contains(tag) }))
+            articles = fetchResources()
         }
         
-        var snapshot = NSDiffableDataSourceSnapshot<SectionKind, AnyHashable>()
+        snapshot.deleteAllItems()
         snapshot.appendSections([.tag, .article])
         let tags: [Tag] = Tag.allCases
         snapshot.appendItems(tags, toSection: .tag)
@@ -228,7 +236,6 @@ extension ResourcesViewController: UISearchResultsUpdating, UISearchBarDelegate 
 }
 
 extension ResourcesViewController: UISearchControllerDelegate {
-    //add snapshot here to update data
     func searchBarShouldBeginEditing(_ searchBar: UISearchBar) -> Bool {
         return true
     }
@@ -237,9 +244,6 @@ extension ResourcesViewController: UISearchControllerDelegate {
         search(searchText: nil, searchTag: nil)
     }
     
-    func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
-        resources = fetchResources()
-    }
 }
 
 extension ResourcesViewController: SavedArticleDelegate {
@@ -247,8 +251,7 @@ extension ResourcesViewController: SavedArticleDelegate {
     func didSaveArticle(_ cell: UICollectionViewCell, article: SiteInfo) {
         
         if dataPersistence.hasItemBeenSaved(article) {
-            print("del")
-            guard let index = resources.firstIndex(of: article) else {
+            guard let index = try? dataPersistence.loadItems().firstIndex(of: article) else {
                 print("could not find article to delete")
                 return
             }
@@ -258,7 +261,6 @@ extension ResourcesViewController: SavedArticleDelegate {
                 showAlert(title: "Error deleting", message: "Could not unsave article from saved articles")
             }
         } else {
-            print("new")
             do {
                 try dataPersistence.createItem(article)
             } catch {
@@ -268,6 +270,16 @@ extension ResourcesViewController: SavedArticleDelegate {
     }
     
 }
+
+extension ResourcesViewController: UpdateDelegate {
+    
+    func updateUI(_ viewController: SavedArticlesController) {
+        snapshot.reloadSections([.article])
+        dataSource.apply(snapshot)
+    }
+    
+}
+
 
 //
 //    func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {

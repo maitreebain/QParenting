@@ -45,3 +45,12 @@ extension UIImageView {
         layer.shadowOpacity = 0.8
     }
 }
+
+extension UIButton {
+    func shadowLayer(_ button: UIButton) {
+        button.layer.shadowColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1)
+        button.layer.shadowOffset = CGSize(width: 1.0, height: 4.0)
+        button.layer.shadowRadius = 4.0
+        button.layer.shadowOpacity = 0.8
+    }
+}

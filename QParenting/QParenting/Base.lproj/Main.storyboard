@@ -19,10 +19,10 @@
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
                     <navigationItem key="navigationItem" title="Resources" id="8Ek-1F-z67">
-                        <barButtonItem key="leftBarButtonItem" image="rectangle.and.paperclip" catalog="system" id="yUR-0Q-DQH">
-                            <color key="tintColor" red="0.5518820204849334" green="0.39508221756015238" blue="0.88166243654822329" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                        <barButtonItem key="leftBarButtonItem" image="paperclip" catalog="system" id="yUR-0Q-DQH">
+                            <color key="tintColor" red="0.50597453599241138" green="0.36145209610479451" blue="0.82057027284263961" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                             <connections>
-                                <segue destination="kYJ-Y8-JxW" kind="presentation" id="KKX-8a-bZM"/>
+                                <segue destination="kYJ-Y8-JxW" kind="presentation" id="Ht7-wF-Jea"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
@@ -67,7 +67,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="19O-GJ-YMh" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="4171.0144927536239" y="-556.47321428571422"/>
+            <point key="canvasLocation" x="4103" y="-563"/>
         </scene>
         <!--Forum-->
         <scene sceneID="Ebo-4l-HGL">
@@ -449,12 +449,12 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="bCz-xs-I8M" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3260.8695652173915" y="-556.47321428571422"/>
+            <point key="canvasLocation" x="3245" y="-563"/>
         </scene>
     </scenes>
     <resources>
         <image name="checkmark.square.fill" catalog="system" width="128" height="114"/>
+        <image name="paperclip" catalog="system" width="128" height="128"/>
         <image name="plus" catalog="system" width="128" height="113"/>
-        <image name="rectangle.and.paperclip" catalog="system" width="128" height="100"/>
     </resources>
 </document>

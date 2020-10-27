@@ -40,17 +40,19 @@ class ResourceCell: UICollectionViewCell {
         resourceLink.text = resource.name.capitalized
         tags.text = resource.tags.joined(separator: ", ")
         article = resource
+        saveArticle = dp.hasItemBeenSaved(resource)
     }
     
     @IBAction func didSaveArticle(_ sender: UIButton) {
         delegate?.didSaveArticle(self, article: article)
-        saveArticle = true
+        saveArticle.toggle()
     }
     
     override func layoutSubviews() {
         super.layoutSubviews()
         
         resourceImage.layer.cornerRadius = 14
-        saveButton.layer.cornerRadius = 20
+        saveButton.layer.cornerRadius = 22
+        saveButton.shadowLayer(saveButton)
     }
 }
