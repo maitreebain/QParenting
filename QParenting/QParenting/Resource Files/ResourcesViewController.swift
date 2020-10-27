@@ -41,6 +41,7 @@ class ResourcesViewController: UIViewController, UICollectionViewDelegate {
     private var searchController: UISearchController!
     
     typealias DataSource = UICollectionViewDiffableDataSource<SectionKind, AnyHashable>
+    var snapshot = NSDiffableDataSourceSnapshot<SectionKind, AnyHashable>()
     private var dataSource: DataSource!
     private var dataPersistence = DataPersistence<SiteInfo>(filename: "savedArticles")
     
@@ -54,6 +55,7 @@ class ResourcesViewController: UIViewController, UICollectionViewDelegate {
         super.viewDidLoad()
         
         //        dataPersistence.removeAll()
+        
         randomImages()
         resources = fetchResources()
         configureCollectionView()
@@ -80,6 +82,11 @@ class ResourcesViewController: UIViewController, UICollectionViewDelegate {
         searchController.searchBar.autocapitalizationType = .none
         searchController.obscuresBackgroundDuringPresentation = false
         searchController.delegate = self
+    }
+
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        guard let nav = segue.destination as? UINavigationController, let savedArticleVC = nav.viewControllers.first as? SavedArticlesController else { return }
+        savedArticleVC.delegate = self
     }
     
     private func createLayout() -> UICollectionViewLayout {
@@ -141,7 +148,7 @@ class ResourcesViewController: UIViewController, UICollectionViewDelegate {
                 return cell
             }
         })
-        var snapshot = NSDiffableDataSourceSnapshot<SectionKind, AnyHashable>()
+        snapshot.deleteAllItems()
         snapshot.appendSections([.tag, .article])
         
         let tags: [Tag] = Tag.allCases
@@ -195,14 +202,17 @@ class ResourcesViewController: UIViewController, UICollectionViewDelegate {
     func search(searchText text: String?,searchTag tag: String?) {
         var articles = [SiteInfo]()
         
+        
         if let searchText = text {
+            guard !searchText.isEmpty else { return }
             articles = resources.filter { $0.name.lowercased().contains(searchText)}
-        } else {
-            guard let tag = tag else { return }
+        } else if let tag = tag {
             articles = Array(Set(resources.filter { $0.tags.contains(tag) }))
+        } else {
+            articles = fetchResources()
         }
         
-        var snapshot = NSDiffableDataSourceSnapshot<SectionKind, AnyHashable>()
+        snapshot.deleteAllItems()
         snapshot.appendSections([.tag, .article])
         let tags: [Tag] = Tag.allCases
         snapshot.appendItems(tags, toSection: .tag)
@@ -237,9 +247,6 @@ extension ResourcesViewController: UISearchControllerDelegate {
         search(searchText: nil, searchTag: nil)
     }
     
-    func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
-        resources = fetchResources()
-    }
 }
 
 extension ResourcesViewController: SavedArticleDelegate {
@@ -248,7 +255,7 @@ extension ResourcesViewController: SavedArticleDelegate {
         
         if dataPersistence.hasItemBeenSaved(article) {
             print("del")
-            guard let index = resources.firstIndex(of: article) else {
+            guard let index = try? dataPersistence.loadItems().firstIndex(of: article) else {
                 print("could not find article to delete")
                 return
             }
@@ -261,6 +268,7 @@ extension ResourcesViewController: SavedArticleDelegate {
             print("new")
             do {
                 try dataPersistence.createItem(article)
+                //get access to button or variable
             } catch {
                 showAlert(title: "Error saving", message: "Could not save article")
             }
@@ -268,6 +276,17 @@ extension ResourcesViewController: SavedArticleDelegate {
     }
     
 }
+
+extension ResourcesViewController: UpdateDelegate {
+    
+    func updateUI(_ viewController: SavedArticlesController) {
+        snapshot.reloadSections([.article])
+        dataSource.apply(snapshot)
+    }
+    
+    
+}
+
 
 //
 //    func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {

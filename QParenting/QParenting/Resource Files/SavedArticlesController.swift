@@ -9,6 +9,10 @@
 import UIKit
 import DataPersistence
 
+protocol UpdateDelegate: AnyObject {
+    func updateUI(_ viewController: SavedArticlesController)
+}
+
 class SavedArticlesController: UIViewController {
     
     private var searchController: UISearchController!
@@ -18,10 +22,13 @@ class SavedArticlesController: UIViewController {
     private var imageNames = ["prideB", "prideC", "prideD", "prideE", "prideF"]
     private var imagesArr = [UIImage]()
     private var data = [SiteInfo]()
+    weak var delegate: UpdateDelegate?
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        
+        delegate?.updateUI(self)
         data = getData()
         randomImages()
         initSearchController()
@@ -137,7 +144,7 @@ extension SavedArticlesController: SavedArticleDelegate {
         
             if dataPer.hasItemBeenSaved(article) {
                 print("del")
-                guard let index = data.firstIndex(of: article) else {
+                guard let index = getData().firstIndex(of: article) else {
                     print("could not find article to delete")
                     return
                 }
@@ -147,6 +154,7 @@ extension SavedArticlesController: SavedArticleDelegate {
                     showAlert(title: "Error deleting", message: "Could not unsave article from saved articles")
                 }
             }
+        self.delegate?.updateUI(self)
     }
     
     
