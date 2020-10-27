@@ -33,7 +33,7 @@ class TagCell: UICollectionViewCell {
         super.layoutSubviews()
 
         backgroundColor = UIColor(displayP3Red: .random(in: 0...1), green: .random(in: 0...1), blue: .random(in: 0...1), alpha: 1.0)
-        layer.cornerRadius = 16
+        layer.cornerRadius = 14
         
         clipsToBounds = false
         layer.masksToBounds = false

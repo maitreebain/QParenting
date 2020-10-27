@@ -52,6 +52,7 @@ class ResourceCell: UICollectionViewCell {
         super.layoutSubviews()
         
         resourceImage.layer.cornerRadius = 14
-        saveButton.layer.cornerRadius = 20
+        saveButton.layer.cornerRadius = 22
+        saveButton.shadowLayer(saveButton)
     }
 }
