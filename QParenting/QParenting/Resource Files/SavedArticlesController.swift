@@ -28,7 +28,9 @@ class SavedArticlesController: UIViewController {
                 self.savedArticlesCollection.reloadData()
                 
                 if self.data.isEmpty {
+                    if !self.searchController.isActive {
                     self.savedArticlesCollection.backgroundView = EmptyView(title: "No articles saved", message: "Take a look at resources to save an article")
+                    }
                 } else {
                     self.savedArticlesCollection.backgroundView = nil
                 }
