@@ -12,7 +12,7 @@ class ForumViewController: UIViewController {
 
     @IBOutlet var collectionView: UICollectionView!
     
-    var forumPosts = [Post]() {
+    var articlePost = [Post]() {
         didSet {
             collectionView.reloadData()
         }
@@ -22,21 +22,22 @@ class ForumViewController: UIViewController {
         super.viewDidLoad()
         collectionView.dataSource = self
         collectionView.delegate = self
-        forumPosts = [Post(author: "random", title: "Title here", content: "content", datePosted: Date(), comments: [])]
+       // articlePost = [Post(author: "random", title: "Title here", content: "content", datePosted: Date(), comments: [])]
+        //create posting
     }
     
 }
 
 extension ForumViewController: UICollectionViewDelegateFlowLayout, UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return forumPosts.count
+        return articlePost.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "forumCell", for: indexPath) as? ForumCell else {
             fatalError("could not dequeue as forumCell")
         }
-        let post = forumPosts[indexPath.row]
+        let post = articlePost[indexPath.row]
         cell.configureCell(post)
         return cell
     }
@@ -47,7 +48,7 @@ extension ForumViewController: UICollectionViewDelegateFlowLayout, UICollectionV
             fatalError("could not segue")
         }
         
-        let post = forumPosts[indexPath.row]
+        let post = articlePost[indexPath.row]
         postVC.post = post
 //        postVC.navigationItem.title = post.title
         navigationController?.pushViewController(postVC, animated: true)

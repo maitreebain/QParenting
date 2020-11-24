@@ -11,5 +11,4 @@ import Foundation
 struct User {
     let username = "randomUser"
     let dateCreated = Date()
-    
 }

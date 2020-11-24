@@ -240,7 +240,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="842"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Write a topic" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lo0-7s-uvS">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Enter a title" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lo0-7s-uvS">
                                 <rect key="frame" x="20" y="96" width="374" height="20.5"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
@@ -254,12 +254,12 @@
                             </label>
                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" text="Description" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="kp4-Ii-1Q8">
                                 <rect key="frame" x="20" y="275" width="374" height="337"/>
-                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                <color key="backgroundColor" systemColor="systemGroupedBackgroundColor" red="0.94901960780000005" green="0.94901960780000005" blue="0.96862745100000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <color key="textColor" systemColor="labelColor" cocoaTouchSystemColor="darkTextColor"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                             </textView>
-                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="jsB-60-9nE">
+                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Example: &quot;How My Child Came Out To Me&quot;" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="jsB-60-9nE">
                                 <rect key="frame" x="20" y="144.5" width="374" height="34"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
@@ -284,12 +284,14 @@
                         <viewLayoutGuide key="safeArea" id="TdL-eF-zbl"/>
                     </view>
                     <navigationItem key="navigationItem" id="GjR-PU-7ef">
-                        <barButtonItem key="leftBarButtonItem" title="Cancel" id="DeQ-lY-WHQ">
+                        <barButtonItem key="leftBarButtonItem" title="Item" image="x.square" catalog="system" id="DeQ-lY-WHQ">
+                            <color key="tintColor" systemColor="labelColor" cocoaTouchSystemColor="darkTextColor"/>
                             <connections>
                                 <action selector="cancelActionButtonPressed:" destination="bnr-oK-GwR" id="LNz-MS-h9n"/>
                             </connections>
                         </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" image="checkmark.square.fill" catalog="system" id="mOo-y5-53H">
+                            <color key="tintColor" systemColor="labelColor" cocoaTouchSystemColor="darkTextColor"/>
                             <connections>
                                 <action selector="postActionButtonPressed:" destination="bnr-oK-GwR" id="Qhh-sE-dLi"/>
                             </connections>
@@ -456,5 +458,6 @@
         <image name="checkmark.square.fill" catalog="system" width="128" height="114"/>
         <image name="paperclip" catalog="system" width="128" height="128"/>
         <image name="plus" catalog="system" width="128" height="113"/>
+        <image name="x.square" catalog="system" width="128" height="114"/>
     </resources>
 </document>
