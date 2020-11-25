@@ -20,7 +20,7 @@
                     </view>
                     <navigationItem key="navigationItem" title="Resources" id="8Ek-1F-z67">
                         <barButtonItem key="leftBarButtonItem" image="paperclip" catalog="system" id="yUR-0Q-DQH">
-                            <color key="tintColor" red="0.50597453599241138" green="0.36145209610479451" blue="0.82057027284263961" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                            <color key="tintColor" red="0.6210702844447471" green="0.48960050652071513" blue="0.98007217639593913" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                             <connections>
                                 <segue destination="kYJ-Y8-JxW" kind="presentation" id="Ht7-wF-Jea"/>
                             </connections>
@@ -232,7 +232,7 @@
             </objects>
             <point key="canvasLocation" x="5095.652173913044" y="151.33928571428569"/>
         </scene>
-        <!--Create Post View Controller-->
+        <!--Article Post-->
         <scene sceneID="ABG-o9-WbJ">
             <objects>
                 <viewController storyboardIdentifier="CreatePostViewController" id="bnr-oK-GwR" customClass="CreatePostViewController" customModule="QParenting" customModuleProvider="target" sceneMemberID="viewController">
@@ -246,35 +246,57 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Write a description" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="elW-e0-AfK">
-                                <rect key="frame" x="20" y="216.5" width="374" height="20.5"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Write a description or add a file/pdf" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="elW-e0-AfK">
+                                <rect key="frame" x="20" y="214.5" width="374" height="21"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" text="Description" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="kp4-Ii-1Q8">
-                                <rect key="frame" x="20" y="275" width="374" height="337"/>
+                                <rect key="frame" x="20" y="261.5" width="374" height="337"/>
                                 <color key="backgroundColor" systemColor="systemGroupedBackgroundColor" red="0.94901960780000005" green="0.94901960780000005" blue="0.96862745100000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <color key="textColor" systemColor="labelColor" cocoaTouchSystemColor="darkTextColor"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                             </textView>
-                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Example: &quot;How My Child Came Out To Me&quot;" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="jsB-60-9nE">
-                                <rect key="frame" x="20" y="144.5" width="374" height="34"/>
+                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Example: &quot;How I Supported My Child&quot;" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="jsB-60-9nE">
+                                <rect key="frame" x="20" y="142.5" width="374" height="34"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="PAn-B6-pjo">
+                                <rect key="frame" x="20" y="679.5" width="374" height="30"/>
+                                <color key="backgroundColor" red="0.62107028440000001" green="0.48960050649999998" blue="0.98007217639999999" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                <state key="normal" title="File/PDF">
+                                    <color key="titleColor" systemColor="labelColor" cocoaTouchSystemColor="darkTextColor"/>
+                                </state>
+                                <connections>
+                                    <action selector="fileSelectPressed:" destination="bnr-oK-GwR" eventType="touchUpInside" id="nRq-No-L3Y"/>
+                                </connections>
+                            </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Select a file/pdf" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="FTa-3h-m39">
+                                <rect key="frame" x="20" y="638.5" width="374" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <constraints>
                             <constraint firstItem="TdL-eF-zbl" firstAttribute="trailing" secondItem="lo0-7s-uvS" secondAttribute="trailing" constant="20" id="36u-6C-Qa6"/>
-                            <constraint firstItem="jsB-60-9nE" firstAttribute="top" secondItem="lo0-7s-uvS" secondAttribute="bottom" constant="28" id="GU2-2T-FDa"/>
+                            <constraint firstItem="TdL-eF-zbl" firstAttribute="trailing" secondItem="PAn-B6-pjo" secondAttribute="trailing" constant="20" id="3KC-I3-A1D"/>
+                            <constraint firstItem="PAn-B6-pjo" firstAttribute="leading" secondItem="TdL-eF-zbl" secondAttribute="leading" constant="20" id="FfJ-A8-FBK"/>
+                            <constraint firstItem="jsB-60-9nE" firstAttribute="top" secondItem="lo0-7s-uvS" secondAttribute="bottom" constant="26" id="GU2-2T-FDa"/>
                             <constraint firstItem="TdL-eF-zbl" firstAttribute="trailing" secondItem="elW-e0-AfK" secondAttribute="trailing" constant="20" id="JqZ-NV-HZ1"/>
                             <constraint firstItem="TdL-eF-zbl" firstAttribute="trailing" secondItem="kp4-Ii-1Q8" secondAttribute="trailing" constant="20" id="KgM-Ng-xk8"/>
                             <constraint firstItem="elW-e0-AfK" firstAttribute="leading" secondItem="TdL-eF-zbl" secondAttribute="leading" constant="20" id="OQb-2E-X2T"/>
                             <constraint firstItem="lo0-7s-uvS" firstAttribute="leading" secondItem="TdL-eF-zbl" secondAttribute="leading" constant="20" id="RcU-vV-Nno"/>
-                            <constraint firstItem="kp4-Ii-1Q8" firstAttribute="top" secondItem="elW-e0-AfK" secondAttribute="bottom" constant="38" id="ZU3-BW-EWe"/>
+                            <constraint firstItem="FTa-3h-m39" firstAttribute="leading" secondItem="TdL-eF-zbl" secondAttribute="leading" constant="20" id="TqZ-gc-I2U"/>
+                            <constraint firstItem="FTa-3h-m39" firstAttribute="top" secondItem="kp4-Ii-1Q8" secondAttribute="bottom" constant="40" id="VN0-D2-K8q"/>
+                            <constraint firstItem="kp4-Ii-1Q8" firstAttribute="top" secondItem="elW-e0-AfK" secondAttribute="bottom" constant="26" id="ZU3-BW-EWe"/>
                             <constraint firstItem="lo0-7s-uvS" firstAttribute="top" secondItem="TdL-eF-zbl" secondAttribute="top" constant="40" id="aLC-ob-t9G"/>
+                            <constraint firstItem="TdL-eF-zbl" firstAttribute="trailing" secondItem="FTa-3h-m39" secondAttribute="trailing" constant="20" id="evc-g9-6RU"/>
+                            <constraint firstItem="PAn-B6-pjo" firstAttribute="top" secondItem="FTa-3h-m39" secondAttribute="bottom" constant="20" id="fY0-pv-qAt"/>
                             <constraint firstItem="kp4-Ii-1Q8" firstAttribute="height" secondItem="eQc-xG-i0x" secondAttribute="height" multiplier="0.4" id="gNL-Us-2fj"/>
                             <constraint firstItem="kp4-Ii-1Q8" firstAttribute="leading" secondItem="TdL-eF-zbl" secondAttribute="leading" constant="20" id="jGO-vU-DVs"/>
                             <constraint firstItem="TdL-eF-zbl" firstAttribute="trailing" secondItem="jsB-60-9nE" secondAttribute="trailing" constant="20" id="pYe-Qb-NDu"/>
@@ -283,7 +305,7 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="TdL-eF-zbl"/>
                     </view>
-                    <navigationItem key="navigationItem" id="GjR-PU-7ef">
+                    <navigationItem key="navigationItem" title="Article Post" id="GjR-PU-7ef">
                         <barButtonItem key="leftBarButtonItem" title="Item" image="x.square" catalog="system" id="DeQ-lY-WHQ">
                             <color key="tintColor" systemColor="labelColor" cocoaTouchSystemColor="darkTextColor"/>
                             <connections>
@@ -299,7 +321,7 @@
                     </navigationItem>
                     <connections>
                         <outlet property="descriptionTextView" destination="kp4-Ii-1Q8" id="jHT-BO-EAj"/>
-                        <outlet property="titleLabel" destination="jsB-60-9nE" id="acX-iB-Ztv"/>
+                        <outlet property="titleTextField" destination="jsB-60-9nE" id="acX-iB-Ztv"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ltR-fH-wEZ" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
